@@ -1,6 +1,5 @@
 import React from "react";
-
-import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 interface WorkoutCardProps {
   title: string;
@@ -20,6 +19,7 @@ const styles = StyleSheet.create({
     height: 200,
     padding: 10,
     marginRight: 10,
+    borderRadius: 20,
     backgroundColor: "#574B90",
     alignItems: "center",
     justifyContent: "center",
