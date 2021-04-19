@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Button, StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import WorkoutCard from "./components/WorkoutCard";
 
 export default function App() {
   return (
@@ -19,18 +20,9 @@ export default function App() {
       <View>
         <Text style={{ paddingLeft: 20 }}>My Workouts</Text>
         <View style={styles.workouts}>
-          <View style={styles.workout}>
-            <Text style={{ color: "white" }}>Workout 1</Text>
-          </View>
-          <View style={styles.workout}>
-            <Text style={{ color: "white" }}>Workout 2</Text>
-          </View>
-          <View style={styles.workout}>
-            <Text style={{ color: "white" }}>Workout 3</Text>
-          </View>
-          <View style={styles.workout}>
-            <Text style={{ color: "white" }}>Workout 4</Text>
-          </View>
+          {[1, 2, 3, 4].map((workout) => (
+            <WorkoutCard title={`Workout ${workout}`} />
+          ))}
         </View>
       </View>
       <View style={[styles.bar, styles.bottomNav]}>
