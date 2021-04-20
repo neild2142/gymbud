@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 import WorkoutCard from "./WorkoutCard";
 
 interface ScrollableWorkoutsProps {
@@ -11,11 +11,18 @@ const ScrollableWorkouts: React.FC<ScrollableWorkoutsProps> = ({
 }) => {
   return (
     <View>
-      <Text style={{ paddingLeft: 20 }}>My Workouts</Text>
+      <View style={styles.myWorkouts}>
+        <Text style={styles.myWorkoutsText}>My Workouts</Text>
+        <Text style={[styles.myWorkoutsText, { color: "#FC85AE" }]}>
+          See All
+        </Text>
+      </View>
       <View style={styles.workouts}>
-        {workouts.map((workout) => (
-          <WorkoutCard title={`Workout ${workout}`} key={workout} />
-        ))}
+        <ScrollView horizontal>
+          {workouts.map((workout) => (
+            <WorkoutCard title={`Workout ${workout}`} key={workout} />
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -27,6 +34,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     padding: 20,
+  },
+  myWorkouts: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingRight: 20,
+    paddingLeft: 20,
+  },
+  myWorkoutsText: {
+    fontSize: 20,
   },
 });
 
