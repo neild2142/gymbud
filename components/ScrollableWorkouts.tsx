@@ -14,7 +14,7 @@ const ScrollableWorkouts: React.FC<ScrollableWorkoutsProps> = ({
       <Text style={{ paddingLeft: 20 }}>My Workouts</Text>
       <View style={styles.workouts}>
         {workouts.map((workout) => (
-          <WorkoutCard title={`Workout ${workout}`} />
+          <WorkoutCard title={`Workout ${workout}`} key={workout} />
         ))}
       </View>
     </View>

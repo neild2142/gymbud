@@ -11,7 +11,7 @@ const TopBar = () => {
           style={styles.button}
           onPress={() => console.log("create")}
         >
-          <Text style={styles.buttonText}>Create</Text>
+          <Text style={styles.buttonText}>Start</Text>
         </TouchableOpacity>
       </View>
     </View>
