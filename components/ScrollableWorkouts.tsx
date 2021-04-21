@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
+import Text from "./Text";
 import WorkoutCard from "./WorkoutCard";
 
 interface ScrollableWorkoutsProps {
