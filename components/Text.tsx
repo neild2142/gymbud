@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 interface TextProps {
-  style: StyleProp<TextStyle>;
+  style?: StyleProp<TextStyle>;
 }
 
 const Text: React.FC<TextProps> = ({ children, style }) => {
@@ -16,7 +16,7 @@ const Text: React.FC<TextProps> = ({ children, style }) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontFamily: "roboto",
+    fontFamily: "",
   },
 });
 

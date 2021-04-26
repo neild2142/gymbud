@@ -15,3 +15,5 @@ web-build/
 # Personal
 node_modules/
 .vscode/
+
+*-error.log

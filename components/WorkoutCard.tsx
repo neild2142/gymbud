@@ -40,7 +40,7 @@ const WorkoutTag: React.FC<WorkoutTagProps> = ({ bodyPart, color }) => {
 
 const styles = StyleSheet.create({
   workout: {
-    width: 200,
+    width: 240,
     minHeight: 230,
     padding: 20,
     marginRight: 10,
