@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
     height: "100%",
   },
   bar: {
-    backgroundColor: "#574B90",
+    backgroundColor: "#4a5778",
     height: "25%",
     width: "100%",
     display: "flex",
     padding: 20,
-    justifyContent: "space-evenly",
+    justifyContent: "center",
     alignItems: "flex-start",
   },
   cta: {
