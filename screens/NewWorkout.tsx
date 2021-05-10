@@ -13,13 +13,22 @@ const NewWorkout = () => {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>New Workout!</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("Home")}
-      >
-        <Text style={styles.buttonText}>Home</Text>
-      </TouchableOpacity>
+      <View style={{ alignItems: "center" }}>
+        <TouchableOpacity
+          style={[
+            styles.button,
+            { width: 120, backgroundColor: "#ececec", marginBottom: 10 },
+          ]}
+        >
+          <Text style={styles.buttonText}>Add Exercise</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("Home")}
+        >
+          <Text style={styles.buttonText}>Cancel</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
