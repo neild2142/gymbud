@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import "react-native-gesture-handler";
+import ExerciseList from "./screens/ExerciseList";
 import Home from "./screens/Home";
 import NewWorkout from "./screens/NewWorkout";
 import { RootStack } from "./screens/RootStack";
@@ -26,6 +27,7 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="New" component={NewWorkout} />
+        <Stack.Screen name="ExerciseList" component={ExerciseList} />
       </Stack.Navigator>
     </NavigationContainer>
   );

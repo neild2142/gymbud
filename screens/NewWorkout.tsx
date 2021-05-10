@@ -19,6 +19,7 @@ const NewWorkout = () => {
             styles.button,
             { width: 120, backgroundColor: "#ececec", marginBottom: 10 },
           ]}
+          onPress={() => navigation.navigate("ExerciseList")}
         >
           <Text style={styles.buttonText}>Add Exercise</Text>
         </TouchableOpacity>
