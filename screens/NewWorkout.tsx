@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { ImageBackground, TouchableOpacity, View } from "react-native";
+import { ImageBackground, View } from "react-native";
+import { Button, Icon } from "react-native-elements";
 import Text from "../components/Text";
 import { styles } from "../styles";
 import { RootStack } from "./RootStack";
-import { Button, Icon } from "react-native-elements";
 
 type NewWorkoutStack = StackNavigationProp<RootStack, "New">;
 
@@ -14,7 +14,7 @@ const NewWorkout = () => {
 
   return (
     <ImageBackground
-      source={require("../assets/new-bg.png")}
+      source={require("../assets/bg.png")}
       style={{ width: "100%", height: "100%" }}
     >
       <View
@@ -28,7 +28,7 @@ const NewWorkout = () => {
         ]}
       >
         <View>
-          <Text style={[styles.welcome, { color: "white" }]}>New Workout</Text>
+          <Text style={[styles.welcome, { color: "black" }]}>New Workout</Text>
           <Button
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.titleStyle}
