@@ -2,21 +2,22 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
-import { Button, ListItem } from "react-native-elements";
-import Card from "../components/Card";
+import { ScrollView, TouchableOpacity, View } from "react-native";
+import { Button } from "react-native-elements";
+import CategoryCard from "../components/CategoryCard";
+import ExerciseListBottomSheet from "../components/ExerciseListBottomSheet";
 import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
-import WorkoutTag, { tagColors } from "../components/WorkoutTag";
 import { styles } from "../styles";
 import { RootStack } from "./RootStack";
 
 const CALVES = 14;
 
-interface Category {
+export interface Category {
   id: number;
   name: string;
+  categoryIndex: number;
 }
 
 interface CategoryResponse {
@@ -36,6 +37,8 @@ type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
 const ExerciseList = () => {
   const navigation = useNavigation<NewWorkoutStack>();
   const [categories, setCategories] = useState<Category[] | null>(null);
+  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
 
   useEffect(() => {
     const getCategoryList = async () => {
@@ -47,6 +50,15 @@ const ExerciseList = () => {
   if (!categories) {
     return null;
   }
+
+  const onCategoryClick = (category: Category): void => {
+    setBottomSheetVisible(!bottomSheetVisible);
+    setCurrentCategory(category);
+  };
+
+  const hideBottomShelf = (): void => {
+    setBottomSheetVisible(false);
+  };
 
   return (
     <ViewContainer>
@@ -68,38 +80,21 @@ const ExerciseList = () => {
           }}
         >
           {categories
-            .filter((category) => category.id !== CALVES)
-            .map((category, i) => (
-              <Card
-                style={{
-                  width: 190,
-                  height: 170,
-                  marginVertical: 5,
-                  marginHorizontal: 10,
-                  marginRight: 0,
-                }}
-                key={`${category.name}-${i}`}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 25,
-                    fontWeight: "bold",
-                    marginBottom: 10,
-                  }}
-                >
-                  {category.name}
-                </Text>
-                <WorkoutTag
-                  bodyPart={category.name}
-                  color={tagColors[i % tagColors.length]}
-                />
-                <Text style={{ color: "white" }}>
-                  Lorem ipsum dolor, sit amet consectetur!
-                </Text>
-              </Card>
+            .filter((c) => c.id !== CALVES)
+            .map((c, index) => (
+              <CategoryCard
+                key={`${c.name}-${c.id}`}
+                category={{ ...c, categoryIndex: index }}
+                onCategoryClick={onCategoryClick}
+              />
             ))}
         </View>
+        {currentCategory && (
+          <ExerciseListBottomSheet
+            hideBottomShelf={hideBottomShelf}
+            bottomSheetVisible={bottomSheetVisible}
+          />
+        )}
       </ScrollView>
     </ViewContainer>
   );

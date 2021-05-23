@@ -33,6 +33,9 @@ export const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
   },
+  overlayStyle: {
+    width: "80%",
+  },
   bodyPartTag: {
     padding: 5,
     color: "black",

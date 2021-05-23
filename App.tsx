@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import "react-native-gesture-handler";
+import ViewContainer from "./components/ViewContainer";
 import ExerciseList from "./screens/ExerciseList";
 import Home from "./screens/Home";
 import NewWorkout from "./screens/NewWorkout";
