@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Button } from "react-native-elements";
 import CategoryCard from "../components/CategoryCard";
 import ExerciseListBottomSheet from "../components/ExerciseListBottomSheet";
@@ -25,9 +25,28 @@ interface CategoryResponse {
   count: number;
 }
 
+export interface Exercise {
+  name: string;
+  id: number;
+  description: string;
+  muscles: number[];
+}
+
+interface ExerciseListResponse {
+  results: Exercise[];
+  count: number;
+}
+
 async function getCategories() {
   const response = await axios.get<CategoryResponse>(
     "https://wger.de/api/v2/exercisecategory/"
+  );
+  return response.data.results;
+}
+
+async function getExercises(currentCategoryId: number) {
+  const response = await axios.get<ExerciseListResponse>(
+    `https://wger.de/api/v2/exercise/?category=${currentCategoryId}&language=2`
   );
   return response.data.results;
 }
@@ -37,6 +56,7 @@ type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
 const ExerciseList = () => {
   const navigation = useNavigation<NewWorkoutStack>();
   const [categories, setCategories] = useState<Category[] | null>(null);
+  const [exercises, setExercises] = useState<Exercise[] | null>(null);
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
   const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
 
@@ -47,6 +67,16 @@ const ExerciseList = () => {
     getCategoryList();
   }, []);
 
+  useEffect(() => {
+    const getExerciseList = async () => {
+      if (!currentCategory) {
+        return null;
+      }
+      setExercises(await getExercises(currentCategory.id));
+    };
+    getExerciseList();
+  }, [currentCategory]);
+
   if (!categories) {
     return null;
   }
@@ -54,6 +84,7 @@ const ExerciseList = () => {
   const onCategoryClick = (category: Category): void => {
     setBottomSheetVisible(!bottomSheetVisible);
     setCurrentCategory(category);
+    setExercises(null);
   };
 
   const hideBottomShelf = (): void => {
@@ -93,6 +124,7 @@ const ExerciseList = () => {
           <ExerciseListBottomSheet
             hideBottomShelf={hideBottomShelf}
             bottomSheetVisible={bottomSheetVisible}
+            exercises={exercises}
           />
         )}
       </ScrollView>

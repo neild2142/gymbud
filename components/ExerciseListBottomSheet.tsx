@@ -1,66 +1,83 @@
 import React from "react";
-import { Pressable } from "react-native";
-import { TouchableWithoutFeedback } from "react-native";
+import { ActivityIndicator, StyleSheet, ScrollView, View } from "react-native";
 import { BottomSheet, ListItem } from "react-native-elements";
+import { Exercise } from "../screens/ExerciseList";
 
 interface ExerciseListBottomSheetProps {
   bottomSheetVisible: boolean;
   hideBottomShelf(): void;
+  exercises: Exercise[] | null;
 }
 
 const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   bottomSheetVisible,
   hideBottomShelf,
+  exercises,
 }) => {
-  const list = [
-    {
-      title: "Barbell Curl 1",
-      subtitle: "Barbell Curl Subtitle",
-      onPress: () => console.log("curl 1"),
-    },
-    {
-      title: "Hammer Curl 2",
-      subtitle: "Hammer Curl Subtitle",
-      onPress: () => console.log("curl 2"),
-    },
-    {
-      title: "Cancel",
-      containerStyle: { backgroundColor: "#303A52" },
-      titleStyle: { color: "white" },
-      onPress: () => hideBottomShelf(),
-    },
-  ];
+  const renderLoadingSpinner = () => {
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#A6FFA5" />
+      </View>
+    );
+  };
+
+  if (!exercises) {
+    return renderLoadingSpinner();
+  }
+
+  const renderCancellationItem = () => {
+    return (
+      <ListItem
+        onPress={() => hideBottomShelf()}
+        containerStyle={{ backgroundColor: "#303A52" }}
+      >
+        <ListItem.Content>
+          <ListItem.Title style={{ color: "white" }}>Close</ListItem.Title>
+        </ListItem.Content>
+      </ListItem>
+    );
+  };
 
   return (
-    <TouchableWithoutFeedback onPress={() => hideBottomShelf()}>
-      <BottomSheet
-        modalProps={{
-          animationType: "fade",
-          onRequestClose: () => hideBottomShelf(),
-          statusBarTranslucent: true,
-        }}
-        isVisible={bottomSheetVisible}
-        containerStyle={{ backgroundColor: "rgba(0.5, 0.25, 0, 0.2)" }}
-      >
-        {list.map((l, i) => (
-          <ListItem
-            containerStyle={l.containerStyle}
-            onPress={() => console.log(l.title)}
-            key={i}
-          >
-            <ListItem.Content>
-              <ListItem.Title style={l.titleStyle}>{l.title}</ListItem.Title>
-              {l.subtitle && (
-                <ListItem.Subtitle style={l.titleStyle}>
-                  {l.subtitle}
+    <BottomSheet
+      modalProps={{
+        animationType: "fade",
+        onRequestClose: () => hideBottomShelf(),
+        statusBarTranslucent: true,
+      }}
+      isVisible={bottomSheetVisible}
+      containerStyle={{ backgroundColor: "rgba(0.5, 0.25, 0, 0.2)" }}
+    >
+      <ScrollView>
+        <View>
+          {exercises.map((exercise, i) => (
+            <ListItem key={i} onPress={() => console.log(exercise.name)}>
+              <ListItem.Content>
+                <ListItem.Title>{exercise.name}</ListItem.Title>
+                <ListItem.Subtitle>
+                  Subtitle meta information of exercise.
                 </ListItem.Subtitle>
-              )}
-            </ListItem.Content>
-          </ListItem>
-        ))}
-      </BottomSheet>
-    </TouchableWithoutFeedback>
+              </ListItem.Content>
+            </ListItem>
+          ))}
+          {renderCancellationItem()}
+        </View>
+      </ScrollView>
+    </BottomSheet>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10,
+  },
+});
 
 export default ExerciseListBottomSheet;

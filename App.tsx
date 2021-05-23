@@ -1,10 +1,12 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
+import { ActivityIndicator, View } from "react-native";
 import "react-native-gesture-handler";
 import ViewContainer from "./components/ViewContainer";
 import ExerciseList from "./screens/ExerciseList";
 import Home from "./screens/Home";
+import { StyleSheet } from "react-native";
 import NewWorkout from "./screens/NewWorkout";
 import { RootStack } from "./screens/RootStack";
 
