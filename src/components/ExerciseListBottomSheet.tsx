@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, StyleSheet, ScrollView, View } from "react-native";
 import { BottomSheet, ListItem } from "react-native-elements";
-import { Exercise } from "../screens/ExerciseList";
+import { Exercise } from "../services/useFetchWorkout";
 
 interface ExerciseListBottomSheetProps {
   bottomSheetVisible: boolean;
