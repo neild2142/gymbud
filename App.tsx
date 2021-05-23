@@ -9,6 +9,10 @@ import { RootStack } from "./screens/RootStack";
 
 const Stack = createStackNavigator<RootStack>();
 
+const defaultScreenOptions = {
+  headerShown: false,
+};
+
 const theme = {
   dark: true,
   colors: {
@@ -25,9 +29,21 @@ export default function App() {
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="New" component={NewWorkout} />
-        <Stack.Screen name="ExerciseList" component={ExerciseList} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={defaultScreenOptions}
+        />
+        <Stack.Screen
+          name="New"
+          component={NewWorkout}
+          options={defaultScreenOptions}
+        />
+        <Stack.Screen
+          name="ExerciseList"
+          component={ExerciseList}
+          options={defaultScreenOptions}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

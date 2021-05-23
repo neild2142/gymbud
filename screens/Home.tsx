@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { View } from "react-native";
+import { ImageBackground, View } from "react-native";
 import BottomNav from "../components/BottomNav";
 import ScrollableWorkouts from "../components/ScrollableWorkouts";
 import TopBar from "../components/TopBar";
@@ -14,11 +14,16 @@ const Home = () => {
   const navigation = useNavigation<HomeStack>();
 
   return (
-    <View style={styles.container}>
-      <TopBar navigation={navigation} />
-      <ScrollableWorkouts workouts={[1, 2, 3, 4]} />
-      <BottomNav />
-    </View>
+    <ImageBackground
+      source={require("../assets/bg.png")}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <View style={styles.container}>
+        <TopBar navigation={navigation} />
+        <ScrollableWorkouts workouts={[1, 2, 3, 4]} />
+        <BottomNav />
+      </View>
+    </ImageBackground>
   );
 };
 

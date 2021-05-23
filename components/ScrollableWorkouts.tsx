@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   myWorkoutsText: {
     fontSize: 20,
+    color: "black",
   },
 });
 

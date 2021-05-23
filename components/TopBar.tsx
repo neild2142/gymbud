@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
+import { Button } from "react-native-elements";
 import { HomeStack } from "../screens/Home";
 import { styles } from "../styles";
 import Text from "./Text";
@@ -13,12 +14,12 @@ const TopBar: React.FC<TopBarProps> = ({ navigation }) => {
     <View style={styles.bar}>
       <View style={styles.cta}>
         <Text style={styles.welcome}>Welcome Back, Neil!</Text>
-        <TouchableOpacity
-          style={styles.button}
+        <Button
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.titleStyle}
+          title="New"
           onPress={() => navigation.navigate("New")}
-        >
-          <Text style={styles.buttonText}>New</Text>
-        </TouchableOpacity>
+        />
       </View>
     </View>
   );

@@ -2,12 +2,10 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
     justifyContent: "space-between",
     height: "100%",
   },
   bar: {
-    backgroundColor: "#4a5778",
     height: "25%",
     width: "100%",
     display: "flex",
@@ -36,7 +34,17 @@ export const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 25,
-    color: "white",
+    color: "black",
     fontWeight: "bold",
+  },
+  buttonStyle: {
+    padding: 10,
+    backgroundColor: "#FC85AE",
+    borderRadius: 10,
+    marginTop: 10,
+    width: 120,
+  },
+  titleStyle: {
+    color: "#000",
   },
 });
