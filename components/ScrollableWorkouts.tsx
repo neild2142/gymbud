@@ -34,14 +34,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
-    padding: 20,
+    paddingTop: 20,
   },
   myWorkouts: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingRight: 20,
-    paddingLeft: 20,
   },
   myWorkoutsText: {
     fontSize: 20,

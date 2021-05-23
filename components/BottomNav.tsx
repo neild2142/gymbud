@@ -5,7 +5,7 @@ import Text from "./Text";
 
 const BottomNav = () => {
   return (
-    <View style={[styles.bar, styles.bottomNav]}>
+    <View style={[styles.header, styles.bottomNav]}>
       <Text style={{ fontSize: 25, color: "white" }}>App Navigation</Text>
     </View>
   );

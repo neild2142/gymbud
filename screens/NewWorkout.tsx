@@ -3,7 +3,9 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { ImageBackground, View } from "react-native";
 import { Button, Icon } from "react-native-elements";
+import Header from "../components/Header";
 import Text from "../components/Text";
+import ViewContainer from "../components/ViewContainer";
 import { styles } from "../styles";
 import { RootStack } from "./RootStack";
 
@@ -13,19 +15,13 @@ const NewWorkout = () => {
   const navigation = useNavigation<NewWorkoutStack>();
 
   return (
-    <ImageBackground
-      source={require("../assets/bg.png")}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <View
-        style={[
-          styles.bar,
-          {
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          },
-        ]}
+    <ViewContainer>
+      <Header
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
         <View>
           <Text style={[styles.welcome, { color: "black" }]}>New Workout</Text>
@@ -43,8 +39,8 @@ const NewWorkout = () => {
           color="#303A52"
           onPress={() => navigation.navigate("ExerciseList")}
         />
-      </View>
-    </ImageBackground>
+      </Header>
+    </ViewContainer>
   );
 };
 
