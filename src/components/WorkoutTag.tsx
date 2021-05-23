@@ -1,7 +1,7 @@
 import React from "react";
 import Text from "./Text";
 import { View } from "react-native";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 
 interface WorkoutTagProps {
   bodyPart: string;

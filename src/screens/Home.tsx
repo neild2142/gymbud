@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import ScrollableWorkouts from "../components/ScrollableWorkouts";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 import { RootStack } from "./RootStack";
 
 export type HomeStack = StackNavigationProp<RootStack, "Home">;

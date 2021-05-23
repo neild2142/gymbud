@@ -9,7 +9,7 @@ import ExerciseListBottomSheet from "../components/ExerciseListBottomSheet";
 import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 import { RootStack } from "./RootStack";
 
 const CALVES = 14;

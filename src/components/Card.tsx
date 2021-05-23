@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 
 interface CardProps {
   style?: StyleProp<ViewStyle>;

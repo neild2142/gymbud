@@ -6,7 +6,7 @@ import { Button, Icon } from "react-native-elements";
 import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
-import { styles } from "../styles";
+import { styles } from "../../styles";
 import { RootStack } from "./RootStack";
 
 type NewWorkoutStack = StackNavigationProp<RootStack, "New">;
