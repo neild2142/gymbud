@@ -12,6 +12,7 @@ export interface Exercise {
   id: number;
   description: string;
   muscles: number[];
+  category: number;
 }
 
 const useFetchWorkout = () => {

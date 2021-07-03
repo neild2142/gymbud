@@ -8,6 +8,7 @@ interface ExerciseListBottomSheetProps {
   hideBottomShelf(): void;
   exercises: Exercise[] | null;
   addExerciseToWorkout(exercise: Exercise): void;
+  workoutExercises: Exercise[];
 }
 
 const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
@@ -15,6 +16,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   hideBottomShelf,
   exercises,
   addExerciseToWorkout,
+  workoutExercises,
 }) => {
   const renderLoadingSpinner = () => {
     return (
@@ -41,6 +43,12 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
     );
   };
 
+  const isItemDisabled = (exercise: Exercise): boolean =>
+    workoutExercises.some(
+      (workoutExercise) => workoutExercise.id === exercise.id
+    );
+
+  console.log(workoutExercises);
   const addToWorkout = (exercise: Exercise) => addExerciseToWorkout(exercise);
 
   return (
@@ -56,7 +64,12 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
       <ScrollView>
         <View>
           {exercises.map((exercise, i) => (
-            <ListItem key={i} onPress={() => addToWorkout(exercise)}>
+            <ListItem
+              key={i}
+              onPress={() => addToWorkout(exercise)}
+              disabled={isItemDisabled(exercise)}
+              disabledStyle={styles.disabled}
+            >
               <ListItem.Content>
                 <ListItem.Title>{exercise.name}</ListItem.Title>
                 <ListItem.Subtitle>
@@ -81,6 +94,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10,
+  },
+  disabled: {
+    backgroundColor: "grey",
   },
 });
 

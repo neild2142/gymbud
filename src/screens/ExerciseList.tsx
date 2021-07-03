@@ -45,16 +45,13 @@ const ExerciseList = () => {
   return (
     <ViewContainer>
       <Header>
-        <Text style={[styles.welcome, { color: "black" }]}>Category</Text>
+        <Text style={[styles.welcome, { color: "black" }]}>Details</Text>
         <Button
           buttonStyle={styles.buttonStyle}
           titleStyle={styles.titleStyle}
           title="Back"
           onPress={() => navigation.navigate("New")}
         />
-        {getWorkoutExercises().map((we) => (
-          <Text>{we.name}</Text>
-        ))}
       </Header>
       <ScrollView>
         <View
@@ -78,6 +75,7 @@ const ExerciseList = () => {
             bottomSheetVisible={bottomSheetVisible}
             exercises={exercises}
             addExerciseToWorkout={addExerciseToWorkout}
+            workoutExercises={getWorkoutExercises()}
           />
         )}
       </ScrollView>
