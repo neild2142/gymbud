@@ -26,7 +26,8 @@ const ExerciseList = () => {
     resetExercises,
   } = useFetchWorkout();
 
-  const { addExerciseToWorkout, getWorkoutExercises } = useWorkoutExercises();
+  const { addExerciseToWorkout, workoutExercises, exercisesForCategory } =
+    useWorkoutExercises();
 
   if (!categories) {
     return null;
@@ -66,6 +67,7 @@ const ExerciseList = () => {
               key={`${c.name}-${c.id}`}
               category={{ ...c, categoryIndex: index }}
               onCategoryClick={onCategoryClick}
+              numberOfExercisesSelected={exercisesForCategory(c.id)}
             />
           ))}
         </View>
@@ -75,7 +77,7 @@ const ExerciseList = () => {
             bottomSheetVisible={bottomSheetVisible}
             exercises={exercises}
             addExerciseToWorkout={addExerciseToWorkout}
-            workoutExercises={getWorkoutExercises()}
+            workoutExercises={workoutExercises}
           />
         )}
       </ScrollView>

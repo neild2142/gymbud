@@ -48,7 +48,6 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
       (workoutExercise) => workoutExercise.id === exercise.id
     );
 
-  console.log(workoutExercises);
   const addToWorkout = (exercise: Exercise) => addExerciseToWorkout(exercise);
 
   return (
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   disabled: {
-    backgroundColor: "grey",
+    backgroundColor: "#D6F0FF",
   },
 });
 

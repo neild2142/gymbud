@@ -8,11 +8,14 @@ const useWorkoutExercises = () => {
     setWorkoutExercises([...workoutExercises, exercise]);
   };
 
-  const getWorkoutExercises = () => workoutExercises;
+  const exercisesForCategory = (categoryID: number): number => {
+    return workoutExercises.filter((e) => e.category === categoryID).length;
+  };
 
   return {
     addExerciseToWorkout,
-    getWorkoutExercises,
+    workoutExercises,
+    exercisesForCategory,
   };
 };
 
