@@ -7,12 +7,14 @@ interface ExerciseListBottomSheetProps {
   bottomSheetVisible: boolean;
   hideBottomShelf(): void;
   exercises: Exercise[] | null;
+  addExerciseToWorkout(exercise: Exercise): void;
 }
 
 const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   bottomSheetVisible,
   hideBottomShelf,
   exercises,
+  addExerciseToWorkout,
 }) => {
   const renderLoadingSpinner = () => {
     return (
@@ -39,6 +41,8 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
     );
   };
 
+  const addToWorkout = (exercise: Exercise) => addExerciseToWorkout(exercise);
+
   return (
     <BottomSheet
       modalProps={{
@@ -52,7 +56,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
       <ScrollView>
         <View>
           {exercises.map((exercise, i) => (
-            <ListItem key={i} onPress={() => console.log(exercise.name)}>
+            <ListItem key={i} onPress={() => addToWorkout(exercise)}>
               <ListItem.Content>
                 <ListItem.Title>{exercise.name}</ListItem.Title>
                 <ListItem.Subtitle>

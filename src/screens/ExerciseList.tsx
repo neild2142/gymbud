@@ -10,6 +10,7 @@ import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
 import useFetchWorkout, { Category } from "../services/useFetchWorkout";
+import useWorkoutExercises from "../services/useWorkoutExercises";
 import { RootStack } from "./RootStack";
 
 type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
@@ -24,6 +25,8 @@ const ExerciseList = () => {
     setCategoryHandler,
     resetExercises,
   } = useFetchWorkout();
+
+  const { addExerciseToWorkout, getWorkoutExercises } = useWorkoutExercises();
 
   if (!categories) {
     return null;
@@ -49,6 +52,9 @@ const ExerciseList = () => {
           title="Back"
           onPress={() => navigation.navigate("New")}
         />
+        {getWorkoutExercises().map((we) => (
+          <Text>{we.name}</Text>
+        ))}
       </Header>
       <ScrollView>
         <View
@@ -71,6 +77,7 @@ const ExerciseList = () => {
             hideBottomShelf={hideBottomShelf}
             bottomSheetVisible={bottomSheetVisible}
             exercises={exercises}
+            addExerciseToWorkout={addExerciseToWorkout}
           />
         )}
       </ScrollView>
