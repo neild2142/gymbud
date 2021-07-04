@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Category } from "./useFetchWorkout";
+import { Category } from "./useFetchExercises";
 import WorkoutAPIClient from "./WorkoutAPIClient";
 
 const useFetchCategory = () => {

@@ -10,7 +10,7 @@ import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
 import useFetchCategory from "../services/useFetchCategory";
-import useFetchWorkout, { Category } from "../services/useFetchWorkout";
+import useFetchExercises, { Category } from "../services/useFetchExercises";
 import useWorkoutExercises from "../services/useWorkoutExercises";
 import { RootStack } from "./RootStack";
 
@@ -22,7 +22,7 @@ const ExerciseList = () => {
 
   const { categories, currentCategory, setCategoryHandler } =
     useFetchCategory();
-  const { exercises, resetExercises } = useFetchWorkout(currentCategory);
+  const { exercises, resetExercises } = useFetchExercises(currentCategory);
   const { addExerciseToWorkout, workoutExercises, exercisesForCategory } =
     useWorkoutExercises();
 

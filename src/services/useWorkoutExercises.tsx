@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Exercise } from "./useFetchWorkout";
+import { Exercise } from "./useFetchExercises";
 
 const useWorkoutExercises = () => {
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[]>([]);

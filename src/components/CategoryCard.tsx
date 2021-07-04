@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { Category } from "../services/useFetchWorkout";
+import { Category } from "../services/useFetchExercises";
 import Card from "./Card";
 import Text from "./Text";
 import WorkoutTag, { tagColors } from "./WorkoutTag";

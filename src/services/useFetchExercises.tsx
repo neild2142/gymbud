@@ -15,7 +15,7 @@ export interface Exercise {
   category: number;
 }
 
-const useFetchWorkout = (currentCategory: Category | null) => {
+const useFetchExercises = (currentCategory: Category | null) => {
   const [exercises, setExercises] = useState<Exercise[] | null>(null);
   const workoutAPIClient = new WorkoutAPIClient();
 
@@ -36,4 +36,4 @@ const useFetchWorkout = (currentCategory: Category | null) => {
   return { exercises, resetExercises };
 };
 
-export default useFetchWorkout;
+export default useFetchExercises;
