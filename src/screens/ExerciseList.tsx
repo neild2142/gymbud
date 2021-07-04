@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "../../styles";
 import CategoryList from "../components/CategoryList";
@@ -23,8 +22,12 @@ const ExerciseList = () => {
   const { categories, currentCategory, setCategoryHandler } =
     useFetchCategory();
   const { exercises, resetExercises } = useFetchExercises(currentCategory);
-  const { addExerciseToWorkout, removeExerciseFromWorkout, workoutExercises, exercisesForCategory } =
-    useWorkoutExercises();
+  const {
+    addExerciseToWorkout,
+    removeExerciseFromWorkout,
+    workoutExercises,
+    exercisesForCategory,
+  } = useWorkoutExercises();
 
   if (!categories) {
     return null;
@@ -59,7 +62,6 @@ const ExerciseList = () => {
       currentCategory && (
         <ExerciseListBottomSheet
           hideBottomShelf={hideBottomShelf}
-          bottomSheetVisible={bottomSheetVisible}
           exercises={exercises}
           addExerciseToWorkout={addExerciseToWorkout}
           removeExerciseFromWorkout={removeExerciseFromWorkout}
@@ -70,16 +72,14 @@ const ExerciseList = () => {
   };
 
   return (
-    <ViewContainer>
+    <ViewContainer style={{ position: "relative" }}>
       {renderHeader()}
-      <ScrollView>
-        <CategoryList
-          onCategoryClick={onCategoryClick}
-          categories={categories}
-          exercisesForCategory={exercisesForCategory}
-        />
-        {renderExerciseList()}
-      </ScrollView>
+      <CategoryList
+        onCategoryClick={onCategoryClick}
+        categories={categories}
+        exercisesForCategory={exercisesForCategory}
+      />
+      {renderExerciseList()}
     </ViewContainer>
   );
 };

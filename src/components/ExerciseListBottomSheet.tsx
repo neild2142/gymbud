@@ -1,10 +1,16 @@
 import React from "react";
-import { ActivityIndicator, StyleSheet, ScrollView, View } from "react-native";
-import { BottomSheet, ListItem } from "react-native-elements";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Icon } from "react-native-elements";
+import Text from "../components/Text";
 import { Exercise } from "../services/useFetchExercises";
 
 interface ExerciseListBottomSheetProps {
-  bottomSheetVisible: boolean;
   hideBottomShelf(): void;
   exercises: Exercise[] | null;
   addExerciseToWorkout(exercise: Exercise): void;
@@ -13,8 +19,6 @@ interface ExerciseListBottomSheetProps {
 }
 
 const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
-  bottomSheetVisible,
-  hideBottomShelf,
   exercises,
   addExerciseToWorkout,
   removeExerciseFromWorkout,
@@ -32,26 +36,13 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
     return renderLoadingSpinner();
   }
 
-  const renderCancellationItem = () => {
-    return (
-      <ListItem
-        onPress={() => hideBottomShelf()}
-        containerStyle={{ backgroundColor: "#303A52" }}
-      >
-        <ListItem.Content>
-          <ListItem.Title style={{ color: "white" }}>Close</ListItem.Title>
-        </ListItem.Content>
-      </ListItem>
-    );
-  };
-
   const exerciseAlreadyInWorkout = (exercise: Exercise): boolean =>
     workoutExercises.some(
       (workoutExercise) => workoutExercise.id === exercise.id
     );
 
   const listItemContainerStyle = (exerciseAdded: boolean) => {
-    return exerciseAdded ? styles.disabled : null;
+    return exerciseAdded ? styles.added : null;
   };
 
   const handleExercisePress = (exercise: Exercise, exerciseAdded: boolean) => {
@@ -61,43 +52,47 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   };
 
   const renderExercises = () => {
-    return exercises.map((exercise, i) => {
-      const exerciseAdded = exerciseAlreadyInWorkout(exercise);
-      return (
-        <ListItem
-          key={i}
-          onPress={() => handleExercisePress(exercise, exerciseAdded)}
-          containerStyle={listItemContainerStyle(exerciseAdded)}
-        >
-          <ListItem.Content>
-            <ListItem.Title>{exercise.name}</ListItem.Title>
-            <ListItem.Subtitle>
-              Subtitle meta information of exercise.
-            </ListItem.Subtitle>
-          </ListItem.Content>
-        </ListItem>
-      );
-    });
+    return (
+      <View style={styles.exerciseContainer}>
+        <View>
+          <View style={styles.headingContainer}>
+            <Icon
+              name="times"
+              type="font-awesome"
+              size={32}
+              color="#303A52"
+              onPress={() => {
+                console.log("close..");
+              }}
+            />
+            <Text style={styles.headingTitle}>Add Exercises</Text>
+          </View>
+          <FlatList
+            data={exercises}
+            renderItem={({ item: exercise }) => {
+              const alreadyAdded = exerciseAlreadyInWorkout(exercise);
+
+              return (
+                <TouchableOpacity
+                  style={[
+                    {
+                      padding: 15,
+                    },
+                    listItemContainerStyle(alreadyAdded),
+                  ]}
+                  onPress={() => handleExercisePress(exercise, alreadyAdded)}
+                >
+                  <Text style={styles.listItem}>{exercise.name}</Text>
+                </TouchableOpacity>
+              );
+            }}
+          />
+        </View>
+      </View>
+    );
   };
 
-  return (
-    <BottomSheet
-      modalProps={{
-        animationType: "fade",
-        onRequestClose: () => hideBottomShelf(),
-        statusBarTranslucent: true,
-      }}
-      isVisible={bottomSheetVisible}
-      containerStyle={{ backgroundColor: "rgba(0.5, 0.25, 0, 0.2)" }}
-    >
-      <ScrollView>
-        <View>
-          {renderExercises()}
-          {renderCancellationItem()}
-        </View>
-      </ScrollView>
-    </BottomSheet>
-  );
+  return renderExercises();
 };
 
 const styles = StyleSheet.create({
@@ -110,8 +105,33 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     padding: 10,
   },
-  disabled: {
+  added: {
     backgroundColor: "#D6F0FF",
+  },
+  exerciseContainer: {
+    flex: 1,
+    backgroundColor: "white",
+    position: "absolute",
+    top: 30,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
+  headingContainer: {
+    flexDirection: "row",
+    paddingTop: 25,
+    paddingBottom: 25,
+    paddingLeft: 15,
+    alignItems: "center",
+  },
+  headingTitle: {
+    fontSize: 32,
+    color: "black",
+    marginLeft: 15,
+  },
+  listItem: {
+    fontSize: 18,
+    color: "black",
   },
 });
 
