@@ -39,10 +39,15 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   }
 
   React.useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", () => {
+    const backPressHandler = () => {
       hideExerciseList();
       return true;
-    });
+    };
+    BackHandler.addEventListener("hardwareBackPress", backPressHandler);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", backPressHandler);
+    };
   }, []);
 
   const exerciseAlreadyInWorkout = (exercise: Exercise): boolean =>
@@ -76,6 +81,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
           </View>
           <FlatList
             data={exercises}
+            keyExtractor={(item, index) => `${item.name} - ${index}`}
             renderItem={({ item: exercise }) => {
               const alreadyAdded = exerciseAlreadyInWorkout(exercise);
 
