@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -6,6 +6,8 @@ import {
   TouchableOpacity,
   View,
   BackHandler,
+  Animated,
+  Easing,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Text from "../components/Text";
@@ -26,6 +28,28 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   removeExerciseFromWorkout,
   workoutExercises,
 }) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  useEffect(() => {
+    const backPressHandler = () => {
+      hideExerciseList();
+      return true;
+    };
+    BackHandler.addEventListener("hardwareBackPress", backPressHandler);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", backPressHandler);
+    };
+  }, []);
+
   const renderLoadingSpinner = () => {
     return (
       <View style={[styles.container, styles.horizontal]}>
@@ -37,18 +61,6 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   if (!exercises) {
     return renderLoadingSpinner();
   }
-
-  React.useEffect(() => {
-    const backPressHandler = () => {
-      hideExerciseList();
-      return true;
-    };
-    BackHandler.addEventListener("hardwareBackPress", backPressHandler);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backPressHandler);
-    };
-  }, []);
 
   const exerciseAlreadyInWorkout = (exercise: Exercise): boolean =>
     workoutExercises.some(
@@ -67,7 +79,21 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
 
   const renderExercises = () => {
     return (
-      <View style={styles.exerciseContainer}>
+      <Animated.View
+        style={[
+          styles.exerciseContainer,
+          {
+            transform: [
+              {
+                translateY: fadeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [2000, 0],
+                }),
+              },
+            ],
+          },
+        ]}
+      >
         <View>
           <View style={styles.headingContainer}>
             <Icon
@@ -101,7 +127,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
             }}
           />
         </View>
-      </View>
+      </Animated.View>
     );
   };
 
