@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
+  BackHandler,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Text from "../components/Text";
@@ -36,6 +37,13 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   if (!exercises) {
     return renderLoadingSpinner();
   }
+
+  React.useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      hideExerciseList();
+      return true;
+    });
+  }, []);
 
   const exerciseAlreadyInWorkout = (exercise: Exercise): boolean =>
     workoutExercises.some(
