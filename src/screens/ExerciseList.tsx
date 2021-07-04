@@ -17,7 +17,7 @@ type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
 
 const ExerciseList = () => {
   const navigation = useNavigation<NewWorkoutStack>();
-  const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
+  const [exerciseListVisible, setExerciseListVisible] = useState(false);
 
   const { categories, currentCategory, setCategoryHandler } =
     useFetchCategory();
@@ -34,7 +34,7 @@ const ExerciseList = () => {
   }
 
   const onCategoryClick = (category: Category): void => {
-    setBottomSheetVisible(!bottomSheetVisible);
+    setExerciseListVisible(!exerciseListVisible);
     setCategoryHandler(category);
     resetExercises();
   };
@@ -53,15 +53,15 @@ const ExerciseList = () => {
     );
   };
 
-  const hideBottomShelf = (): void => {
-    setBottomSheetVisible(false);
+  const hideExerciseList = (): void => {
+    setExerciseListVisible(false);
   };
 
   const renderExerciseList = () => {
     return (
-      currentCategory && (
+      exerciseListVisible && (
         <ExerciseListBottomSheet
-          hideBottomShelf={hideBottomShelf}
+          hideExerciseList={hideExerciseList}
           exercises={exercises}
           addExerciseToWorkout={addExerciseToWorkout}
           removeExerciseFromWorkout={removeExerciseFromWorkout}

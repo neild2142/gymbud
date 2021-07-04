@@ -11,7 +11,7 @@ import Text from "../components/Text";
 import { Exercise } from "../services/useFetchExercises";
 
 interface ExerciseListBottomSheetProps {
-  hideBottomShelf(): void;
+  hideExerciseList(): void;
   exercises: Exercise[] | null;
   addExerciseToWorkout(exercise: Exercise): void;
   removeExerciseFromWorkout(exercise: Exercise): void;
@@ -19,6 +19,7 @@ interface ExerciseListBottomSheetProps {
 }
 
 const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
+  hideExerciseList,
   exercises,
   addExerciseToWorkout,
   removeExerciseFromWorkout,
@@ -61,9 +62,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
               type="font-awesome"
               size={32}
               color="#303A52"
-              onPress={() => {
-                console.log("close..");
-              }}
+              onPress={hideExerciseList}
             />
             <Text style={styles.headingTitle}>Add Exercises</Text>
           </View>
