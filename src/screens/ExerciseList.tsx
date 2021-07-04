@@ -1,14 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "../../styles";
-import CategoryCard from "../components/CategoryCard";
+import CategoryList from "../components/CategoryList";
 import ExerciseListBottomSheet from "../components/ExerciseListBottomSheet";
 import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
+import useFetchCategory from "../services/useFetchCategory";
 import useFetchWorkout, { Category } from "../services/useFetchWorkout";
 import useWorkoutExercises from "../services/useWorkoutExercises";
 import { RootStack } from "./RootStack";
@@ -18,14 +19,10 @@ type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
 const ExerciseList = () => {
   const navigation = useNavigation<NewWorkoutStack>();
   const [bottomSheetVisible, setBottomSheetVisible] = useState(false);
-  const {
-    categories,
-    currentCategory,
-    exercises,
-    setCategoryHandler,
-    resetExercises,
-  } = useFetchWorkout();
 
+  const { categories, currentCategory, setCategoryHandler } =
+    useFetchCategory();
+  const { exercises, resetExercises } = useFetchWorkout(currentCategory);
   const { addExerciseToWorkout, workoutExercises, exercisesForCategory } =
     useWorkoutExercises();
 
@@ -39,12 +36,8 @@ const ExerciseList = () => {
     resetExercises();
   };
 
-  const hideBottomShelf = (): void => {
-    setBottomSheetVisible(false);
-  };
-
-  return (
-    <ViewContainer>
+  const renderHeader = () => {
+    return (
       <Header>
         <Text style={[styles.welcome, { color: "black" }]}>Details</Text>
         <Button
@@ -54,32 +47,37 @@ const ExerciseList = () => {
           onPress={() => navigation.navigate("New")}
         />
       </Header>
+    );
+  };
+
+  const hideBottomShelf = (): void => {
+    setBottomSheetVisible(false);
+  };
+
+  const renderExerciseList = () => {
+    return (
+      currentCategory && (
+        <ExerciseListBottomSheet
+          hideBottomShelf={hideBottomShelf}
+          bottomSheetVisible={bottomSheetVisible}
+          exercises={exercises}
+          addExerciseToWorkout={addExerciseToWorkout}
+          workoutExercises={workoutExercises}
+        />
+      )
+    );
+  };
+
+  return (
+    <ViewContainer>
+      {renderHeader()}
       <ScrollView>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "center",
-          }}
-        >
-          {categories.map((c, index) => (
-            <CategoryCard
-              key={`${c.name}-${c.id}`}
-              category={{ ...c, categoryIndex: index }}
-              onCategoryClick={onCategoryClick}
-              numberOfExercisesSelected={exercisesForCategory(c.id)}
-            />
-          ))}
-        </View>
-        {currentCategory && (
-          <ExerciseListBottomSheet
-            hideBottomShelf={hideBottomShelf}
-            bottomSheetVisible={bottomSheetVisible}
-            exercises={exercises}
-            addExerciseToWorkout={addExerciseToWorkout}
-            workoutExercises={workoutExercises}
-          />
-        )}
+        <CategoryList
+          onCategoryClick={onCategoryClick}
+          categories={categories}
+          exercisesForCategory={exercisesForCategory}
+        />
+        {renderExerciseList()}
       </ScrollView>
     </ViewContainer>
   );

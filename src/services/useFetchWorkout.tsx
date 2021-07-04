@@ -15,18 +15,9 @@ export interface Exercise {
   category: number;
 }
 
-const useFetchWorkout = () => {
-  const [categories, setCategories] = useState<Category[] | null>(null);
+const useFetchWorkout = (currentCategory: Category | null) => {
   const [exercises, setExercises] = useState<Exercise[] | null>(null);
-  const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
   const workoutAPIClient = new WorkoutAPIClient();
-
-  useEffect(() => {
-    const getCategoryList = async () => {
-      setCategories(await workoutAPIClient.getCategories());
-    };
-    getCategoryList();
-  }, []);
 
   useEffect(() => {
     const getExerciseList = async () => {
@@ -38,21 +29,11 @@ const useFetchWorkout = () => {
     getExerciseList();
   }, [currentCategory]);
 
-  const setCategoryHandler = (category: Category) => {
-    setCurrentCategory(category);
-  };
-
   const resetExercises = () => {
     setExercises(null);
   };
 
-  return {
-    categories,
-    exercises,
-    currentCategory,
-    setCategoryHandler,
-    resetExercises,
-  };
+  return { exercises, resetExercises };
 };
 
 export default useFetchWorkout;
