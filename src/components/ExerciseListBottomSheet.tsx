@@ -8,6 +8,7 @@ interface ExerciseListBottomSheetProps {
   hideBottomShelf(): void;
   exercises: Exercise[] | null;
   addExerciseToWorkout(exercise: Exercise): void;
+  removeExerciseFromWorkout(exercise: Exercise): void;
   workoutExercises: Exercise[];
 }
 
@@ -16,6 +17,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   hideBottomShelf,
   exercises,
   addExerciseToWorkout,
+  removeExerciseFromWorkout,
   workoutExercises,
 }) => {
   const renderLoadingSpinner = () => {
@@ -43,12 +45,40 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
     );
   };
 
-  const isItemDisabled = (exercise: Exercise): boolean =>
+  const exerciseAlreadyInWorkout = (exercise: Exercise): boolean =>
     workoutExercises.some(
       (workoutExercise) => workoutExercise.id === exercise.id
     );
 
-  const addToWorkout = (exercise: Exercise) => addExerciseToWorkout(exercise);
+  const listItemContainerStyle = (exerciseAdded: boolean) => {
+    return exerciseAdded ? styles.disabled : null;
+  };
+
+  const handleExercisePress = (exercise: Exercise, exerciseAdded: boolean) => {
+    exerciseAdded
+      ? removeExerciseFromWorkout(exercise)
+      : addExerciseToWorkout(exercise);
+  };
+
+  const renderExercises = () => {
+    return exercises.map((exercise, i) => {
+      const exerciseAdded = exerciseAlreadyInWorkout(exercise);
+      return (
+        <ListItem
+          key={i}
+          onPress={() => handleExercisePress(exercise, exerciseAdded)}
+          containerStyle={listItemContainerStyle(exerciseAdded)}
+        >
+          <ListItem.Content>
+            <ListItem.Title>{exercise.name}</ListItem.Title>
+            <ListItem.Subtitle>
+              Subtitle meta information of exercise.
+            </ListItem.Subtitle>
+          </ListItem.Content>
+        </ListItem>
+      );
+    });
+  };
 
   return (
     <BottomSheet
@@ -62,21 +92,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
     >
       <ScrollView>
         <View>
-          {exercises.map((exercise, i) => (
-            <ListItem
-              key={i}
-              onPress={() => addToWorkout(exercise)}
-              disabled={isItemDisabled(exercise)}
-              disabledStyle={styles.disabled}
-            >
-              <ListItem.Content>
-                <ListItem.Title>{exercise.name}</ListItem.Title>
-                <ListItem.Subtitle>
-                  Subtitle meta information of exercise.
-                </ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-          ))}
+          {renderExercises()}
           {renderCancellationItem()}
         </View>
       </ScrollView>

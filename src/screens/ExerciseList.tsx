@@ -23,7 +23,7 @@ const ExerciseList = () => {
   const { categories, currentCategory, setCategoryHandler } =
     useFetchCategory();
   const { exercises, resetExercises } = useFetchExercises(currentCategory);
-  const { addExerciseToWorkout, workoutExercises, exercisesForCategory } =
+  const { addExerciseToWorkout, removeExerciseFromWorkout, workoutExercises, exercisesForCategory } =
     useWorkoutExercises();
 
   if (!categories) {
@@ -62,6 +62,7 @@ const ExerciseList = () => {
           bottomSheetVisible={bottomSheetVisible}
           exercises={exercises}
           addExerciseToWorkout={addExerciseToWorkout}
+          removeExerciseFromWorkout={removeExerciseFromWorkout}
           workoutExercises={workoutExercises}
         />
       )
