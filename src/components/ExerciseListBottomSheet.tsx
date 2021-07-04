@@ -71,8 +71,8 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
         <View>
           <View style={styles.headingContainer}>
             <Icon
-              name="times"
-              type="font-awesome"
+              name="close-outline"
+              type="ionicon"
               size={32}
               color="#303A52"
               onPress={hideExerciseList}

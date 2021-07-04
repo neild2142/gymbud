@@ -81,9 +81,8 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         style={{
           width: 190,
           height: 170,
-          marginRight: 5,
-          marginLeft: 5,
-          marginBottom: 10,
+          marginBottom: 20,
+          marginRight: 0,
         }}
       >
         {renderCardHeader()}

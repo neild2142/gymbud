@@ -19,7 +19,7 @@ const CategoryList: React.FC<CategoryListProps> = ({
       style={{
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "center",
+        justifyContent: "space-around",
       }}
     >
       {categories.map((category, index) => (
