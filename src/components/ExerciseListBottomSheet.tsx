@@ -9,12 +9,13 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Text from "../components/Text";
-import { Exercise } from "../services/useFetchExercises";
+import { Category, Exercise } from "../services/useFetchExercises";
 import BottomDrawer from "./BottomDrawer";
 
 interface ExerciseListBottomSheetProps {
   hideExerciseList(): void;
   exercises: Exercise[] | null;
+  currentCategory: Category;
   addExerciseToWorkout(exercise: Exercise): void;
   removeExerciseFromWorkout(exercise: Exercise): void;
   workoutExercises: Exercise[];
@@ -26,6 +27,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   addExerciseToWorkout,
   removeExerciseFromWorkout,
   workoutExercises,
+  currentCategory,
 }) => {
   useEffect(() => {
     const backPressHandler = () => {
@@ -82,7 +84,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
               color="#303A52"
               onPress={closeExerciseListHandler}
             />
-            <Text style={styles.headingTitle}>Add Exercises</Text>
+            <Text style={styles.headingTitle}>{currentCategory.name}</Text>
           </View>
           <FlatList
             data={exercises}
