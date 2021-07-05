@@ -5,6 +5,7 @@ import "react-native-gesture-handler";
 import ExerciseList from "./src/screens/ExerciseList";
 import Home from "./src/screens/Home";
 import { RootStack } from "./src/screens/RootStack";
+import Workout from "./src/screens/Workout";
 
 const Stack = createStackNavigator<RootStack>();
 
@@ -24,20 +25,40 @@ const theme = {
   },
 };
 
+interface Screen {
+  name: keyof RootStack;
+  component: React.ComponentType<any>;
+}
+
 export default function App() {
+  const initializeScreen = (screen: Screen) => (
+    <Stack.Screen
+      name={screen.name}
+      component={screen.component}
+      options={defaultScreenOptions}
+      key={screen.name}
+    />
+  );
+
+  const screens: Screen[] = [
+    {
+      name: "Home",
+      component: Home,
+    },
+    {
+      name: "ExerciseList",
+      component: ExerciseList,
+    },
+    {
+      name: "Workout",
+      component: Workout,
+    },
+  ];
+
   return (
     <NavigationContainer theme={theme}>
       <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={defaultScreenOptions}
-        />
-        <Stack.Screen
-          name="ExerciseList"
-          component={ExerciseList}
-          options={defaultScreenOptions}
-        />
+        {screens.map((screen) => initializeScreen(screen))}
       </Stack.Navigator>
     </NavigationContainer>
   );

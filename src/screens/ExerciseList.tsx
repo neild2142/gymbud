@@ -66,6 +66,7 @@ const ExerciseList = () => {
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.titleStyle}
             title="Next"
+            onPress={() => navigation.navigate("Workout")}
             disabled={workoutExercises.length === 0}
           />
         </View>
