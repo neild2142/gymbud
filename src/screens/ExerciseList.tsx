@@ -60,13 +60,15 @@ const ExerciseList = () => {
             ]}
             titleStyle={styles.titleStyle}
             title="Back"
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => navigation.goBack()}
           />
           <Button
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.titleStyle}
             title="Next"
-            onPress={() => navigation.navigate("Workout")}
+            onPress={() =>
+              navigation.navigate("Workout", { exercises: workoutExercises })
+            }
             disabled={workoutExercises.length === 0}
           />
         </View>
