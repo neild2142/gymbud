@@ -42,15 +42,11 @@ const ExerciseList = () => {
 
   const renderHeader = () => {
     return (
-      <Header>
-        <Text style={[styles.welcome, { color: "black" }]}>Details</Text>
+      <Header title="Details">
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "flex-start",
             alignItems: "center",
-            width: "100%",
-            marginTop: 10,
           }}
         >
           <Button

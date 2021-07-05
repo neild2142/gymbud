@@ -4,7 +4,6 @@ import React from "react";
 import "react-native-gesture-handler";
 import ExerciseList from "./src/screens/ExerciseList";
 import Home from "./src/screens/Home";
-import NewWorkout from "./src/screens/NewWorkout";
 import { RootStack } from "./src/screens/RootStack";
 
 const Stack = createStackNavigator<RootStack>();
@@ -34,11 +33,6 @@ export default function App() {
           component={Home}
           options={defaultScreenOptions}
         />
-        {/* <Stack.Screen
-          name="New"
-          component={NewWorkout}
-          options={defaultScreenOptions}
-        /> */}
         <Stack.Screen
           name="ExerciseList"
           component={ExerciseList}

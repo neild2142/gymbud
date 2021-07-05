@@ -17,16 +17,13 @@ const Home = () => {
 
   return (
     <ViewContainer>
-      <Header>
-        <Text style={styles.welcome}>Welcome Back, Neil!</Text>
-        <View style={{ marginTop: 10 }}>
-          <Button
-            buttonStyle={styles.buttonStyle}
-            titleStyle={styles.titleStyle}
-            title="New"
-            onPress={() => navigation.navigate("ExerciseList")}
-          />
-        </View>
+      <Header title="Welcome Back, Neil!">
+        <Button
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.titleStyle}
+          title="New"
+          onPress={() => navigation.navigate("ExerciseList")}
+        />
       </Header>
       <ScrollableWorkouts workouts={[1, 2, 3, 4]} />
     </ViewContainer>
