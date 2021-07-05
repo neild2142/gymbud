@@ -1,7 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import {
   ActivityIndicator,
-  Animated,
   BackHandler,
   FlatList,
   StyleSheet,
@@ -11,6 +10,7 @@ import {
 import { Icon } from "react-native-elements";
 import Text from "../components/Text";
 import { Exercise } from "../services/useFetchExercises";
+import BottomDrawer from "./BottomDrawer";
 
 interface ExerciseListBottomSheetProps {
   hideExerciseList(): void;
@@ -27,16 +27,6 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   removeExerciseFromWorkout,
   workoutExercises,
 }) => {
-  const slideAnimation = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(slideAnimation, {
-      toValue: 1,
-      duration: 600,
-      useNativeDriver: true,
-    }).start();
-  }, [slideAnimation]);
-
   useEffect(() => {
     const backPressHandler = () => {
       hideExerciseList();
@@ -82,21 +72,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
 
   const renderExercises = () => {
     return (
-      <Animated.View
-        style={[
-          styles.exerciseContainer,
-          {
-            transform: [
-              {
-                translateY: slideAnimation.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [2000, 0],
-                }),
-              },
-            ],
-          },
-        ]}
-      >
+      <BottomDrawer>
         <View>
           <View style={styles.headingContainer}>
             <Icon
@@ -130,7 +106,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
             }}
           />
         </View>
-      </Animated.View>
+      </BottomDrawer>
     );
   };
 
@@ -149,15 +125,6 @@ const styles = StyleSheet.create({
   },
   added: {
     backgroundColor: "#D6F0FF",
-  },
-  exerciseContainer: {
-    flex: 1,
-    backgroundColor: "white",
-    position: "absolute",
-    top: 30,
-    bottom: 0,
-    left: 0,
-    right: 0,
   },
   headingContainer: {
     flexDirection: "row",
