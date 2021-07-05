@@ -1,13 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import {
   ActivityIndicator,
+  Animated,
+  BackHandler,
   FlatList,
   StyleSheet,
   TouchableOpacity,
   View,
-  BackHandler,
-  Animated,
-  Easing,
 } from "react-native";
 import { Icon } from "react-native-elements";
 import Text from "../components/Text";
@@ -28,15 +27,15 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   removeExerciseFromWorkout,
   workoutExercises,
 }) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const slideAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(fadeAnim, {
+    Animated.timing(slideAnimation, {
       toValue: 1,
-      duration: 1000,
+      duration: 600,
       useNativeDriver: true,
     }).start();
-  }, [fadeAnim]);
+  }, [slideAnimation]);
 
   useEffect(() => {
     const backPressHandler = () => {
@@ -77,6 +76,10 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
       : addExerciseToWorkout(exercise);
   };
 
+  const closeExerciseListHandler = () => {
+    hideExerciseList();
+  };
+
   const renderExercises = () => {
     return (
       <Animated.View
@@ -85,7 +88,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
           {
             transform: [
               {
-                translateY: fadeAnim.interpolate({
+                translateY: slideAnimation.interpolate({
                   inputRange: [0, 1],
                   outputRange: [2000, 0],
                 }),
@@ -101,7 +104,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
               type="ionicon"
               size={32}
               color="#303A52"
-              onPress={hideExerciseList}
+              onPress={closeExerciseListHandler}
             />
             <Text style={styles.headingTitle}>Add Exercises</Text>
           </View>
