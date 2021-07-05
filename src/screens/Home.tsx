@@ -1,13 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
-import { View } from "react-native";
 import { Button } from "react-native-elements";
+import { styles } from "../../styles";
 import Header from "../components/Header";
 import ScrollableWorkouts from "../components/ScrollableWorkouts";
-import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
-import { styles } from "../../styles";
 import { RootStack } from "./RootStack";
 
 export type HomeStack = StackNavigationProp<RootStack, "Home">;

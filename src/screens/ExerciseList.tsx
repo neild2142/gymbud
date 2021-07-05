@@ -7,7 +7,6 @@ import { styles } from "../../styles";
 import CategoryList from "../components/CategoryList";
 import ExerciseListBottomSheet from "../components/ExerciseListBottomSheet";
 import Header from "../components/Header";
-import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
 import useFetchCategory from "../services/useFetchCategory";
 import useFetchExercises, { Category } from "../services/useFetchExercises";
