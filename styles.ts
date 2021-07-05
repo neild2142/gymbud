@@ -28,9 +28,6 @@ export const styles = StyleSheet.create({
     marginRight: 10,
     marginTop: 10,
   },
-  overlayStyle: {
-    width: "80%",
-  },
   bodyPartTag: {
     padding: 5,
     color: "black",
@@ -47,11 +44,7 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000",
   },
-  bottomNav: {
-    height: "10%",
-    backgroundColor: "#303A52",
-  },
-  welcome: {
+  headerTitle: {
     fontSize: 25,
     color: "black",
     fontWeight: "bold",

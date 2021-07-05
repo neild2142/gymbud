@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ title, style, children }) => (
   <View style={[styles.header, style]}>
-    <Text style={styles.welcome}>{title}</Text>
+    <Text style={styles.headerTitle}>{title}</Text>
     <View style={{ marginTop: 10 }}>{children}</View>
   </View>
 );
