@@ -11,6 +11,9 @@ import { RootStack } from "./RootStack";
 
 type NewWorkoutStack = StackNavigationProp<RootStack, "New">;
 
+/**
+ * @deprecated
+ */
 const NewWorkout = () => {
   const navigation = useNavigation<NewWorkoutStack>();
 

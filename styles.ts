@@ -17,13 +17,8 @@ export const styles = StyleSheet.create({
   },
   header: {
     height: "25%",
-    width: "100%",
-    display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
-  },
-  cta: {
-    justifyContent: "space-between",
   },
   tag: {
     minWidth: 60,
@@ -65,7 +60,6 @@ export const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#FC85AE",
     borderRadius: 10,
-    marginTop: 10,
     width: 120,
   },
   titleStyle: {

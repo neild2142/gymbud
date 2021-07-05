@@ -18,13 +18,13 @@ const Home = () => {
   return (
     <ViewContainer>
       <Header>
-        <View style={styles.cta}>
-          <Text style={styles.welcome}>Welcome Back, Neil!</Text>
+        <Text style={styles.welcome}>Welcome Back, Neil!</Text>
+        <View style={{ marginTop: 10 }}>
           <Button
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.titleStyle}
             title="New"
-            onPress={() => navigation.navigate("New")}
+            onPress={() => navigation.navigate("ExerciseList")}
           />
         </View>
       </Header>

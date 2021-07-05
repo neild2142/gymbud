@@ -34,11 +34,11 @@ export default function App() {
           component={Home}
           options={defaultScreenOptions}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="New"
           component={NewWorkout}
           options={defaultScreenOptions}
-        />
+        /> */}
         <Stack.Screen
           name="ExerciseList"
           component={ExerciseList}

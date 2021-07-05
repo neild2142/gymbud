@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
+import { View } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "../../styles";
 import CategoryList from "../components/CategoryList";
@@ -43,12 +44,36 @@ const ExerciseList = () => {
     return (
       <Header>
         <Text style={[styles.welcome, { color: "black" }]}>Details</Text>
-        <Button
-          buttonStyle={styles.buttonStyle}
-          titleStyle={styles.titleStyle}
-          title="Back"
-          onPress={() => navigation.navigate("New")}
-        />
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            width: "100%",
+            marginTop: 10,
+          }}
+        >
+          <Button
+            buttonStyle={[
+              styles.buttonStyle,
+              {
+                backgroundColor: "transparent",
+                borderColor: "grey",
+                borderWidth: 1,
+                marginRight: 10,
+              },
+            ]}
+            titleStyle={styles.titleStyle}
+            title="Back"
+            onPress={() => navigation.navigate("Home")}
+          />
+          <Button
+            buttonStyle={styles.buttonStyle}
+            titleStyle={styles.titleStyle}
+            title="Next"
+            disabled={workoutExercises.length === 0}
+          />
+        </View>
       </Header>
     );
   };
