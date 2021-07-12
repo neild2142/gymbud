@@ -86,7 +86,7 @@ const ExerciseList = () => {
         <ExerciseListBottomSheet
           hideExerciseList={hideExerciseList}
           exercises={exercises}
-          currentCategory={currentCategory}
+          currentCategory={currentCategory!}
           addExerciseToWorkout={addExerciseToWorkout}
           removeExerciseFromWorkout={removeExerciseFromWorkout}
           workoutExercises={workoutExercises}

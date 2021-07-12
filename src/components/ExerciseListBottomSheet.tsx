@@ -29,18 +29,6 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   workoutExercises,
   currentCategory,
 }) => {
-  useEffect(() => {
-    const backPressHandler = () => {
-      hideExerciseList();
-      return true;
-    };
-    BackHandler.addEventListener("hardwareBackPress", backPressHandler);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backPressHandler);
-    };
-  }, []);
-
   const renderLoadingSpinner = () => {
     return (
       <View style={[styles.container, styles.horizontal]}>
@@ -74,40 +62,31 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
 
   const renderExercises = () => {
     return (
-      <BottomDrawer>
-        <View>
-          <View style={styles.headingContainer}>
-            <Icon
-              name="close-outline"
-              type="ionicon"
-              size={32}
-              color="#303A52"
-              onPress={closeExerciseListHandler}
-            />
-            <Text style={styles.headingTitle}>{currentCategory.name}</Text>
-          </View>
-          <FlatList
-            data={exercises}
-            keyExtractor={(item, index) => `${item.name} - ${index}`}
-            renderItem={({ item: exercise }) => {
-              const alreadyAdded = exerciseAlreadyInWorkout(exercise);
+      <BottomDrawer
+        title={currentCategory.name}
+        onClose={closeExerciseListHandler}
+      >
+        <FlatList
+          data={exercises}
+          keyExtractor={(item, index) => `${item.name} - ${index}`}
+          renderItem={({ item: exercise }) => {
+            const alreadyAdded = exerciseAlreadyInWorkout(exercise);
 
-              return (
-                <TouchableOpacity
-                  style={[
-                    {
-                      padding: 15,
-                    },
-                    listItemContainerStyle(alreadyAdded),
-                  ]}
-                  onPress={() => handleExercisePress(exercise, alreadyAdded)}
-                >
-                  <Text style={styles.listItem}>{exercise.name}</Text>
-                </TouchableOpacity>
-              );
-            }}
-          />
-        </View>
+            return (
+              <TouchableOpacity
+                style={[
+                  {
+                    padding: 15,
+                  },
+                  listItemContainerStyle(alreadyAdded),
+                ]}
+                onPress={() => handleExercisePress(exercise, alreadyAdded)}
+              >
+                <Text style={styles.listItem}>{exercise.name}</Text>
+              </TouchableOpacity>
+            );
+          }}
+        />
       </BottomDrawer>
     );
   };
@@ -127,18 +106,6 @@ const styles = StyleSheet.create({
   },
   added: {
     backgroundColor: "#D6F0FF",
-  },
-  headingContainer: {
-    flexDirection: "row",
-    paddingTop: 25,
-    paddingBottom: 25,
-    paddingLeft: 15,
-    alignItems: "center",
-  },
-  headingTitle: {
-    fontSize: 32,
-    color: "black",
-    marginLeft: 15,
   },
   listItem: {
     fontSize: 18,
