@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ActivityIndicator,
-  BackHandler,
   FlatList,
   StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
-import { Icon } from "react-native-elements";
 import Text from "../components/Text";
 import { Category, Exercise } from "../services/useFetchExercises";
 import BottomDrawer from "./BottomDrawer";
@@ -53,7 +51,10 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
   const handleExercisePress = (exercise: Exercise, exerciseAdded: boolean) => {
     exerciseAdded
       ? removeExerciseFromWorkout(exercise)
-      : addExerciseToWorkout(exercise);
+      : addExerciseToWorkout({
+          ...exercise,
+          categoryName: currentCategory.name,
+        });
   };
 
   const closeExerciseListHandler = () => {

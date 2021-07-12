@@ -19,7 +19,7 @@ const ScrollableWorkouts: React.FC<ScrollableWorkoutsProps> = ({
         </Text>
       </View>
       <View style={styles.workouts}>
-        <ScrollView horizontal>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {workouts.map((workout) => (
             <WorkoutCard title={`Workout ${workout}`} key={workout} />
           ))}

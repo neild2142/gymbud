@@ -1,18 +1,19 @@
 import React from "react";
 import Text from "./Text";
-import { View } from "react-native";
+import { StyleProp, View, ViewStyle } from "react-native";
 import { styles } from "../../styles";
 
 interface WorkoutTagProps {
   bodyPart: string;
   color: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const tagColors = ["#A6FFA5", "#F2A5FF", "#FFEBA5"];
 
-const WorkoutTag: React.FC<WorkoutTagProps> = ({ bodyPart, color }) => {
+const WorkoutTag: React.FC<WorkoutTagProps> = ({ bodyPart, color, style }) => {
   return (
-    <View style={[styles.tag, { backgroundColor: color }]}>
+    <View style={[styles.tag, { backgroundColor: color }, style]}>
       <Text style={styles.bodyPartTag}>{bodyPart}</Text>
     </View>
   );

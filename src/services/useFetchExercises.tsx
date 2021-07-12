@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export interface Category {
   id: number;
   name: string;
-  categoryIndex: number;
+  categoryIndex?: number;
 }
 
 export interface Exercise {
@@ -13,6 +13,8 @@ export interface Exercise {
   id: number;
   description: string;
   muscles: number[];
+  muscles_secondary: number[];
+  categoryName: string;
   category: number;
 }
 
