@@ -13,13 +13,15 @@ import WorkoutTag from "../components/WorkoutTag";
 import muscleData from "../data/muscles";
 import { Exercise } from "../services/useFetchExercises";
 import { RootStack } from "./RootStack";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
 
 const Workout: React.FC = () => {
-  const navigation = useNavigation<WorkoutStack>();
   const { exercises } = useRoute<RouteProp<RootStack, "Workout">>().params;
+  const navigation = useNavigation<WorkoutStack>();
   const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
+  const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>();
 
   const renderExerciseDrawer = () =>
     currentExercise && (
@@ -29,17 +31,54 @@ const Workout: React.FC = () => {
       />
     );
 
+  /*
+    Bug - workoutExercises was not being set to exercises
+    Perhaps this was down to the manner in which react native
+    navigation renders its components.
+  */
+  React.useEffect(() => {
+    setWorkoutExercises(exercises);
+  }, [exercises]);
+
+  const renderLeftActions = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          padding: 20,
+          backgroundColor: "#fd6c6c",
+          justifyContent: "center",
+          borderRadius: 20,
+          marginTop: 20,
+        }}
+      >
+        <Text style={{ color: "white" }}>Delete</Text>
+      </View>
+    );
+  };
+
+  const swipeFromLeftOpen = (id: number) =>
+    setWorkoutExercises(workoutExercises!.filter((e) => e.id !== id));
+
   const renderExercises = () => {
-    if (!exercises) {
+    if (!workoutExercises) {
       return null;
     }
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        {exercises.map((exercise) => (
+        {workoutExercises.map((exercise) => (
           // TODO: <ExerciseCard />
-          <View style={{}} key={exercise.id}>
-            <TouchableOpacity onPress={() => setCurrentExercise(exercise)}>
-              <Card style={{ width: "100%", marginRight: 0, marginBottom: 20 }}>
+          <Swipeable
+            renderLeftActions={renderLeftActions}
+            onSwipeableLeftOpen={() => swipeFromLeftOpen(exercise.id)}
+            key={exercise.id}
+          >
+            <TouchableOpacity
+              onPress={() => setCurrentExercise(exercise)}
+              style={{ flex: 2 }}
+              activeOpacity={1}
+            >
+              <Card style={{ width: "100%", marginRight: 0, marginTop: 20 }}>
                 <View
                   style={{
                     flexDirection: "row",
@@ -89,7 +128,7 @@ const Workout: React.FC = () => {
                 </View>
               </Card>
             </TouchableOpacity>
-          </View>
+          </Swipeable>
         ))}
       </ScrollView>
     );
@@ -123,12 +162,15 @@ const Workout: React.FC = () => {
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.titleStyle}
             title="Add"
-            onPress={() => navigation.navigate("Categories", { exercises })}
-            // disabled={exercises.length === 0}
+            onPress={() =>
+              navigation.navigate("Categories", {
+                exercises: workoutExercises ? workoutExercises : exercises,
+              })
+            }
           />
         </View>
       </Header>
-      {exercises && renderExercises()}
+      {workoutExercises && renderExercises()}
       {renderExerciseDrawer()}
     </ViewContainer>
   );

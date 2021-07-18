@@ -46,12 +46,12 @@ export default function App() {
       component: Home,
     },
     {
-      name: "Categories",
-      component: Categories,
-    },
-    {
       name: "Workout",
       component: Workout,
+    },
+    {
+      name: "Categories",
+      component: Categories,
     },
   ];
 
