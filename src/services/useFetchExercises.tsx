@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
+import useStorage from "./useStorage";
 import WorkoutAPIClient from "./WorkoutAPIClient";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface Category {
   id: number;
@@ -21,25 +21,24 @@ export interface Exercise {
 const useFetchExercises = (currentCategory: Category | null) => {
   const [exercises, setExercises] = useState<Exercise[] | null>(null);
   const workoutAPIClient = new WorkoutAPIClient();
+  const STORAGE_KEY = `gymbud-exercises-for-${currentCategory?.name}`;
+  const { retrieveFromStorage, setStorage } =
+    useStorage<Exercise[]>(STORAGE_KEY);
 
   useEffect(() => {
     if (currentCategory === null) {
       return;
     }
-    const cacheKey = `gymbud-exercises-for-${currentCategory.name}`;
-
-    const cacheExercises = async (exercises: Exercise[]) => {
-      await AsyncStorage.setItem(cacheKey, JSON.stringify(exercises));
-    };
 
     const fetchFromAPI = async () => {
       const exercises = await workoutAPIClient.getExercises(currentCategory.id);
       setExercises(exercises);
-      cacheExercises(exercises);
+      setStorage(exercises);
     };
 
     const getExerciseList = async () => {
-      const cachedExercises = await AsyncStorage.getItem(cacheKey);
+      const cachedExercises = await retrieveFromStorage();
+
       if (cachedExercises !== null) {
         setExercises(JSON.parse(cachedExercises));
       } else {

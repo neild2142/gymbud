@@ -7,9 +7,12 @@ function useStorage<T>(storageKey: string) {
   const setStorage = async (blob: T) =>
     await AsyncStorage.setItem(storageKey, JSON.stringify(blob));
 
+  const resetStorage = async () => await AsyncStorage.removeItem(storageKey);
+
   return {
     retrieveFromStorage,
     setStorage,
+    resetStorage,
   };
 }
 
