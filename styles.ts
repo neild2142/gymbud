@@ -55,6 +55,12 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     width: 120,
   },
+  secondaryButtonStyle: {
+    backgroundColor: "transparent",
+    borderColor: "grey",
+    borderWidth: 1,
+    marginRight: 10,
+  },
   titleStyle: {
     color: "#000",
   },

@@ -76,42 +76,37 @@ const Workout: React.FC = () => {
     />
   );
 
+  const renderHeader = () => (
+    <Header title="Workout">
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          buttonStyle={[styles.buttonStyle, styles.secondaryButtonStyle]}
+          titleStyle={styles.titleStyle}
+          title="Cancel"
+          onPress={() => navigation.goBack()}
+        />
+        <Button
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.titleStyle}
+          title="Add"
+          onPress={() =>
+            navigation.navigate("Categories", {
+              exercises: workoutExercises ? workoutExercises : exercises,
+            })
+          }
+        />
+      </View>
+    </Header>
+  );
+
   return (
     <ViewContainer style={{ position: "relative" }}>
-      <Header title="Workout">
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            buttonStyle={[
-              styles.buttonStyle,
-              // TODO: Make secondary button style
-              {
-                backgroundColor: "transparent",
-                borderColor: "grey",
-                borderWidth: 1,
-                marginRight: 10,
-              },
-            ]}
-            titleStyle={styles.titleStyle}
-            title="Cancel"
-            onPress={() => navigation.goBack()}
-          />
-          <Button
-            buttonStyle={styles.buttonStyle}
-            titleStyle={styles.titleStyle}
-            title="Add"
-            onPress={() =>
-              navigation.navigate("Categories", {
-                exercises: workoutExercises ? workoutExercises : exercises,
-              })
-            }
-          />
-        </View>
-      </Header>
+      {renderHeader()}
       {workoutExercises && renderExercises()}
       {renderExerciseDrawer()}
     </ViewContainer>

@@ -64,15 +64,7 @@ const Categories = () => {
     return (
       <Header title="Details">
         <Button
-          buttonStyle={[
-            styles.buttonStyle,
-            {
-              backgroundColor: "transparent",
-              borderColor: "grey",
-              borderWidth: 1,
-              marginRight: 10,
-            },
-          ]}
+          buttonStyle={[styles.buttonStyle, styles.secondaryButtonStyle]}
           titleStyle={styles.titleStyle}
           title="Back"
           onPress={() => navigateBack()}
