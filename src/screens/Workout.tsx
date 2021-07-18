@@ -2,7 +2,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View } from "react-native";
-import { Button, Image } from "react-native-elements";
+import { Button } from "react-native-elements";
 import { styles } from "../../styles";
 import BottomDrawer from "../components/BottomDrawer";
 import Card from "../components/Card";
@@ -10,9 +10,9 @@ import Header from "../components/Header";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
 import WorkoutTag from "../components/WorkoutTag";
+import muscleData from "../data/muscles";
 import { Exercise } from "../services/useFetchExercises";
 import { RootStack } from "./RootStack";
-import muscleData from "../data/muscles";
 
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
 
@@ -123,7 +123,7 @@ const Workout: React.FC = () => {
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.titleStyle}
             title="Add"
-            onPress={() => navigation.navigate("ExerciseList", { exercises })}
+            onPress={() => navigation.navigate("Categories", { exercises })}
             // disabled={exercises.length === 0}
           />
         </View>

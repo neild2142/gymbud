@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import "react-native-gesture-handler";
-import ExerciseList from "./src/screens/ExerciseList";
+import Categories from "./src/screens/Categories";
 import Home from "./src/screens/Home";
 import { RootStack } from "./src/screens/RootStack";
 import Workout from "./src/screens/Workout";
@@ -46,8 +46,8 @@ export default function App() {
       component: Home,
     },
     {
-      name: "ExerciseList",
-      component: ExerciseList,
+      name: "Categories",
+      component: Categories,
     },
     {
       name: "Workout",

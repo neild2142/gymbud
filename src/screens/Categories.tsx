@@ -1,7 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { View } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "../../styles";
 import CategoryList from "../components/CategoryList";
@@ -13,12 +12,12 @@ import useFetchExercises, { Category } from "../services/useFetchExercises";
 import useWorkoutExercises from "../services/useWorkoutExercises";
 import { RootStack } from "./RootStack";
 
-type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
+type NewWorkoutStack = StackNavigationProp<RootStack, "Categories">;
 
-const ExerciseList = () => {
+const Categories = () => {
   const navigation = useNavigation<NewWorkoutStack>();
   const { exercises: addedExercises } =
-    useRoute<RouteProp<RootStack, "ExerciseList">>().params;
+    useRoute<RouteProp<RootStack, "Categories">>().params;
   const [exerciseListVisible, setExerciseListVisible] = useState(false);
 
   const { categories, currentCategory, setCategoryHandler } =
@@ -96,4 +95,4 @@ const ExerciseList = () => {
   );
 };
 
-export default ExerciseList;
+export default Categories;
