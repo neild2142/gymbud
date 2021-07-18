@@ -1,6 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
+import { BackHandler } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "../../styles";
 import CategoryList from "../components/CategoryList";
@@ -30,6 +31,25 @@ const Categories = () => {
     exercisesForCategory,
   } = useWorkoutExercises(addedExercises);
 
+  const navigateBack = () => {
+    navigation.navigate("Workout", { exercises: workoutExercises });
+  };
+
+  React.useEffect(() => {
+    const backPressHandler = () => {
+      if (exerciseListVisible) {
+        return false;
+      }
+      navigateBack();
+      return true;
+    };
+    BackHandler.addEventListener("hardwareBackPress", backPressHandler);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", backPressHandler);
+    };
+  }, [workoutExercises, exerciseListVisible]);
+
   if (!categories) {
     return null;
   }
@@ -55,9 +75,7 @@ const Categories = () => {
           ]}
           titleStyle={styles.titleStyle}
           title="Back"
-          onPress={() =>
-            navigation.navigate("Workout", { exercises: workoutExercises })
-          }
+          onPress={() => navigateBack()}
         />
       </Header>
     );
