@@ -9,15 +9,18 @@ import Card from "./Card";
 interface ExerciseCardProps {
   exercise: Exercise;
   setExercise(exercise: Exercise): void;
+  drag(): void;
 }
 
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
   exercise,
   setExercise,
+  drag,
 }) => {
   return (
     <TouchableOpacity
       onPress={() => setExercise(exercise)}
+      onLongPress={drag}
       style={{ flex: 2 }}
       activeOpacity={0.9}
     >

@@ -6,6 +6,7 @@ import Categories from "./src/screens/Categories";
 import Home from "./src/screens/Home";
 import { RootStack } from "./src/screens/RootStack";
 import Workout from "./src/screens/Workout";
+import { LogBox } from "react-native";
 
 const Stack = createStackNavigator<RootStack>();
 
@@ -29,6 +30,10 @@ interface Screen {
   name: keyof RootStack;
   component: React.ComponentType<any>;
 }
+
+LogBox.ignoreLogs([
+  "ReactNativeFiberHostComponent: Calling getNode() on the ref of an Animated component is no longer necessary. You can now directly use the ref instead. This method will be removed in a future release.",
+]);
 
 export default function App() {
   const initializeScreen = (screen: Screen) => (

@@ -1,7 +1,10 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { FlatList, View, StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
+import DraggableFlatList, {
+  RenderItemParams,
+} from "react-native-draggable-flatlist";
 import { Button } from "react-native-elements";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { styles } from "../../styles";
@@ -49,20 +52,27 @@ const Workout: React.FC = () => {
   const swipeFromLeftOpen = (id: number) =>
     setWorkoutExercises(workoutExercises!.filter((e) => e.id !== id));
 
+  const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
+    <Swipeable
+      renderRightActions={renderRightActions}
+      onSwipeableRightOpen={() => swipeFromLeftOpen(exercise.id)}
+      key={exercise.id}
+    >
+      <ExerciseCard
+        exercise={exercise}
+        setExercise={setCurrentExercise}
+        drag={drag}
+      />
+    </Swipeable>
+  );
+
   const renderExercises = () => (
-    <FlatList
-      data={workoutExercises}
+    <DraggableFlatList
+      data={workoutExercises!}
       keyExtractor={(item, index) => `${item.name} - ${index}`}
       showsVerticalScrollIndicator={false}
-      renderItem={({ item: exercise }) => (
-        <Swipeable
-          renderRightActions={renderRightActions}
-          onSwipeableRightOpen={() => swipeFromLeftOpen(exercise.id)}
-          key={exercise.id}
-        >
-          <ExerciseCard exercise={exercise} setExercise={setCurrentExercise} />
-        </Swipeable>
-      )}
+      renderItem={renderItem}
+      onDragEnd={({ data }) => setWorkoutExercises(data)}
     />
   );
 
