@@ -31,23 +31,12 @@ const Workout: React.FC = () => {
     );
 
   const renderExercises = () => (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      contentContainerStyle={
-        {
-          // alignItems: "flex-end",
-          // display: "flex",
-        }
-      }
-    >
+    <ScrollView showsVerticalScrollIndicator={false}>
       {exercises.map((exercise) => (
         // TODO: <ExerciseCard />
-        <View style={{}}>
-          <TouchableOpacity
-            onPress={() => setCurrentExercise(exercise)}
-            key={exercise.id}
-          >
-            <Card style={{ width: "60%", marginRight: 0, marginBottom: 20 }}>
+        <View style={{}} key={exercise.id}>
+          <TouchableOpacity onPress={() => setCurrentExercise(exercise)}>
+            <Card style={{ width: "100%", marginRight: 0, marginBottom: 20 }}>
               <View
                 style={{
                   flexDirection: "row",
