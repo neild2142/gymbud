@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { Exercise } from "../services/useFetchExercises";
 import WorkoutTag from "./WorkoutTag";
 import Text from "./Text";
@@ -19,18 +19,10 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
     <TouchableOpacity
       onPress={() => setExercise(exercise)}
       style={{ flex: 2 }}
-      activeOpacity={1}
+      activeOpacity={0.9}
     >
-      <Card style={{ width: "100%", marginRight: 0, marginTop: 20 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            width: "100%",
-            flexWrap: "wrap",
-          }}
-        >
+      <Card style={styles.card}>
+        <View style={styles.header}>
           <Text style={{ color: "white", fontSize: 25, fontWeight: "bold" }}>
             {exercise.name}
           </Text>
@@ -40,15 +32,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             style={{ marginRight: 0 }}
           />
         </View>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginTop: 10,
-            flexWrap: "wrap",
-            width: "100%",
-          }}
-        >
+        <View style={styles.muscles}>
           {exercise.muscles.map((mainMuscle) => (
             <WorkoutTag
               key={`${exercise.name}-${mainMuscle}`}
@@ -71,5 +55,23 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  card: { width: "100%", marginRight: 0, marginTop: 20 },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    flexWrap: "wrap",
+  },
+  muscles: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+    flexWrap: "wrap",
+    width: "100%",
+  },
+});
 
 export default ExerciseCard;

@@ -85,6 +85,7 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
                   },
                   listItemContainerStyle(alreadyAdded),
                 ]}
+                activeOpacity={0.8}
                 onPress={() => handleExercisePress(exercise, alreadyAdded)}
               >
                 <Text style={styles.listItem}>{exercise.name}</Text>

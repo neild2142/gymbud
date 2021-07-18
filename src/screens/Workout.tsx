@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList, View, StyleSheet } from "react-native";
 import { Button } from "react-native-elements";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { styles } from "../../styles";
@@ -38,18 +38,9 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercises);
   }, [exercises]);
 
-  const renderLeftActions = () => {
+  const renderRightActions = () => {
     return (
-      <View
-        style={{
-          flex: 1,
-          padding: 20,
-          backgroundColor: "#fd6c6c",
-          justifyContent: "center",
-          borderRadius: 20,
-          marginTop: 20,
-        }}
-      >
+      <View style={stylesheet.swipeableAction}>
         <Text style={{ color: "white" }}>Delete</Text>
       </View>
     );
@@ -65,8 +56,8 @@ const Workout: React.FC = () => {
       showsVerticalScrollIndicator={false}
       renderItem={({ item: exercise }) => (
         <Swipeable
-          renderLeftActions={renderLeftActions}
-          onSwipeableLeftOpen={() => swipeFromLeftOpen(exercise.id)}
+          renderRightActions={renderRightActions}
+          onSwipeableRightOpen={() => swipeFromLeftOpen(exercise.id)}
           key={exercise.id}
         >
           <ExerciseCard exercise={exercise} setExercise={setCurrentExercise} />
@@ -116,5 +107,18 @@ const Workout: React.FC = () => {
     </ViewContainer>
   );
 };
+
+const stylesheet = StyleSheet.create({
+  swipeableAction: {
+    flex: 1,
+    padding: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f74949",
+    justifyContent: "flex-end",
+    borderRadius: 20,
+    marginTop: 20,
+  },
+});
 
 export default Workout;
