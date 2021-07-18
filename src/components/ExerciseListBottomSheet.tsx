@@ -16,7 +16,7 @@ interface ExerciseListBottomSheetProps {
   currentCategory: Category;
   addExerciseToWorkout(exercise: Exercise): void;
   removeExerciseFromWorkout(exercise: Exercise): void;
-  workoutExercises: Exercise[];
+  workoutExercises: Exercise[] | null;
 }
 
 const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
@@ -39,10 +39,14 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
     return renderLoadingSpinner();
   }
 
-  const exerciseAlreadyInWorkout = (exercise: Exercise): boolean =>
-    workoutExercises.some(
+  const exerciseAlreadyInWorkout = (exercise: Exercise): boolean => {
+    if (!workoutExercises) {
+      return false;
+    }
+    return workoutExercises.some(
       (workoutExercise) => workoutExercise.id === exercise.id
     );
+  };
 
   const listItemContainerStyle = (exerciseAdded: boolean) => {
     return exerciseAdded ? styles.added : null;

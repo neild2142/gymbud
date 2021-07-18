@@ -20,7 +20,7 @@ const Home = () => {
           buttonStyle={styles.buttonStyle}
           titleStyle={styles.titleStyle}
           title="New"
-          onPress={() => navigation.navigate("ExerciseList")}
+          onPress={() => navigation.navigate("Workout", { exercises: null })}
         />
       </Header>
       <ScrollableWorkouts workouts={[1, 2, 3, 4]} />

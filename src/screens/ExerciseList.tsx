@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { View } from "react-native";
@@ -17,6 +17,8 @@ type NewWorkoutStack = StackNavigationProp<RootStack, "ExerciseList">;
 
 const ExerciseList = () => {
   const navigation = useNavigation<NewWorkoutStack>();
+  const { exercises: addedExercises } =
+    useRoute<RouteProp<RootStack, "ExerciseList">>().params;
   const [exerciseListVisible, setExerciseListVisible] = useState(false);
 
   const { categories, currentCategory, setCategoryHandler } =
@@ -27,7 +29,7 @@ const ExerciseList = () => {
     removeExerciseFromWorkout,
     workoutExercises,
     exercisesForCategory,
-  } = useWorkoutExercises();
+  } = useWorkoutExercises(addedExercises);
 
   if (!categories) {
     return null;
@@ -42,36 +44,22 @@ const ExerciseList = () => {
   const renderHeader = () => {
     return (
       <Header title="Details">
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            buttonStyle={[
-              styles.buttonStyle,
-              {
-                backgroundColor: "transparent",
-                borderColor: "grey",
-                borderWidth: 1,
-                marginRight: 10,
-              },
-            ]}
-            titleStyle={styles.titleStyle}
-            title="Back"
-            onPress={() => navigation.goBack()}
-          />
-          <Button
-            buttonStyle={styles.buttonStyle}
-            titleStyle={styles.titleStyle}
-            title="Next"
-            onPress={() =>
-              navigation.navigate("Workout", { exercises: workoutExercises })
-            }
-            disabled={workoutExercises.length === 0}
-          />
-        </View>
+        <Button
+          buttonStyle={[
+            styles.buttonStyle,
+            {
+              backgroundColor: "transparent",
+              borderColor: "grey",
+              borderWidth: 1,
+              marginRight: 10,
+            },
+          ]}
+          titleStyle={styles.titleStyle}
+          title="Back"
+          onPress={() =>
+            navigation.navigate("Workout", { exercises: workoutExercises })
+          }
+        />
       </Header>
     );
   };

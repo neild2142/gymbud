@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { Exercise } from "./useFetchExercises";
 
-const useWorkoutExercises = () => {
-  const [workoutExercises, setWorkoutExercises] = useState<Exercise[]>([]);
+const useWorkoutExercises = (addedExercises: Exercise[] | null) => {
+  const [workoutExercises, setWorkoutExercises] = useState<Exercise[]>(
+    addedExercises || []
+  );
 
   const addExerciseToWorkout = (exercise: Exercise) => {
     setWorkoutExercises([...workoutExercises, exercise]);
