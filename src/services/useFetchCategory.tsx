@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect, useState } from "react";
 import { Category } from "./useFetchExercises";
 import WorkoutAPIClient from "./WorkoutAPIClient";
@@ -9,7 +10,16 @@ const useFetchCategory = () => {
 
   useEffect(() => {
     const getCategoryList = async () => {
-      setCategories(await workoutAPIClient.getCategories());
+      const cacheKey = `gymbud-categories`;
+      const cachedCategories = await AsyncStorage.getItem(cacheKey);
+
+      if (cachedCategories !== null) {
+        setCategories(JSON.parse(cachedCategories));
+      } else {
+        const categories = await workoutAPIClient.getCategories();
+        setCategories(categories);
+        await AsyncStorage.setItem(cacheKey, JSON.stringify(categories));
+      }
     };
     getCategoryList();
   }, []);
