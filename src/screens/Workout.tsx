@@ -11,6 +11,7 @@ import { styles } from "../../styles";
 import BottomDrawer from "../components/BottomDrawer";
 import ExerciseCard from "../components/ExerciseCard";
 import Header from "../components/Header";
+import Set from "../components/Set";
 import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
 import { Exercise } from "../services/useFetchExercises";
@@ -24,13 +25,19 @@ const Workout: React.FC = () => {
   const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>();
 
-  const renderExerciseDrawer = () =>
-    currentExercise && (
-      <BottomDrawer
-        title={currentExercise.name}
-        onClose={() => setCurrentExercise(null)}
-      />
+  const renderExerciseDrawer = () => {
+    console.log(currentExercise);
+    return (
+      currentExercise && (
+        <BottomDrawer
+          title={currentExercise.name}
+          onClose={() => setCurrentExercise(null)}
+        >
+          <Set />
+        </BottomDrawer>
+      )
     );
+  };
 
   /*
     Bug - workoutExercises was not being set to exercises
@@ -49,13 +56,13 @@ const Workout: React.FC = () => {
     );
   };
 
-  const swipeFromLeftOpen = (id: number) =>
+  const swipeFromRightOpen = (id: number) =>
     setWorkoutExercises(workoutExercises!.filter((e) => e.id !== id));
 
   const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
     <Swipeable
       renderRightActions={renderRightActions}
-      onSwipeableRightOpen={() => swipeFromLeftOpen(exercise.id)}
+      onSwipeableRightOpen={() => swipeFromRightOpen(exercise.id)}
       key={exercise.id}
     >
       <ExerciseCard
