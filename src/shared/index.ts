@@ -3,10 +3,15 @@ export interface HeaderProps {
   next?(): void;
 }
 
-interface Set {
-  weight: number;
-  reps: number;
+export interface Set {
+  weight: string;
+  reps: string;
   complete: boolean;
+}
+
+export interface FormSet {
+  weight: string;
+  reps: string;
 }
 
 export interface Category {
@@ -23,5 +28,5 @@ export interface Exercise {
   muscles_secondary: number[];
   categoryName: string;
   category: number;
-  sets?: number;
+  sets: Set[];
 }

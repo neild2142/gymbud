@@ -1,27 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, TextInput, View } from "react-native";
+import { FormSet, Set } from "../../shared";
 import Text from "../shared/Text";
 
-interface SetForm {
-  weight: string;
-  reps: string;
-}
-
-const Set: React.FC<{
+const SetInput: React.FC<{
   setNumber: number;
-  createNewSet(): void;
-}> = ({ setNumber, createNewSet }) => {
+  createNewSet(set: FormSet): void;
+  set: Set;
+}> = ({ setNumber, createNewSet, set }) => {
   const repsRef = useRef(null);
-  const [complete, setComplete] = useState(false);
 
-  const { control, handleSubmit } = useForm<SetForm>({
+  const { control, handleSubmit } = useForm<FormSet>({
     mode: "onBlur",
   });
 
-  const completeSet = handleSubmit((set: SetForm) => {
-    setComplete(true);
-    createNewSet();
+  const completeSet = handleSubmit((set: FormSet) => {
+    createNewSet(set);
   });
 
   return (
@@ -31,12 +26,12 @@ const Set: React.FC<{
           <Text
             style={{
               padding: 12,
-              backgroundColor: complete ? "#A6FFA5" : "#606e91",
+              backgroundColor: set.complete ? "#A6FFA5" : "#606e91",
               borderRadius: 50,
               width: 40,
               height: 40,
               textAlign: "center",
-              color: complete ? "black" : "white",
+              color: set.complete ? "black" : "white",
             }}
           >
             {setNumber}
@@ -47,6 +42,7 @@ const Set: React.FC<{
           <Controller
             control={control}
             name="weight"
+            defaultValue={set.weight}
             render={({ field: { onChange, value, onBlur } }) => (
               <TextInput
                 style={stylesheet.input}
@@ -66,6 +62,7 @@ const Set: React.FC<{
           <Controller
             control={control}
             name="reps"
+            defaultValue={set.reps}
             render={({ field: { onChange, value, onBlur } }) => (
               <TextInput
                 style={stylesheet.input}
@@ -113,4 +110,4 @@ const stylesheet = StyleSheet.create({
   },
 });
 
-export default Set;
+export default SetInput;

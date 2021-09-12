@@ -1,14 +1,21 @@
 import React from "react";
-import { Exercise } from "../shared";
+import { Exercise, FormSet, Set } from "../shared";
 
 const useSets = (
   currentExercise: Exercise,
   workoutExercises: Exercise[],
   setWorkoutExercises: { (exercises: Exercise[]): void }
-): [number, () => void] => {
+): [Set[], (set: FormSet) => void] => {
+  const newSet = {
+    weight: "",
+    reps: "",
+    complete: false,
+  };
   const initialSets = () => {
     return (
-      workoutExercises.find((we) => we.name === currentExercise.name)?.sets || 1
+      workoutExercises.find((we) => we.name === currentExercise.name)?.sets || [
+        newSet,
+      ]
     );
   };
 
@@ -27,9 +34,22 @@ const useSets = (
     };
   };
 
-  const updateSetsForExercise = (exercise: Exercise) => {
+  const updateSetsForExercise = (exercise: Exercise, set: FormSet) => {
     let currentSets = exercise.sets;
-    exercise.sets = !currentSets ? 2 : ++currentSets;
+
+    if (currentSets) {
+      currentSets[currentSets.length - 1] = {
+        ...set,
+        complete: true,
+      };
+      exercise.sets = [...currentSets, newSet];
+    } else {
+      const completedSet: Set = {
+        ...set,
+        complete: true,
+      };
+      exercise.sets = [completedSet, newSet];
+    }
   };
 
   const updateExercisesWithExercise = (exercise: Exercise, index: number) => {
@@ -38,13 +58,13 @@ const useSets = (
     setWorkoutExercises(exercises);
   };
 
-  const addSetToExercise = () => {
+  const addSetToExercise = (set: FormSet) => {
     const { exercise, index } = getExerciseAndIndex();
     if (!exercise) {
       return;
     }
-    setSets(sets + 1);
-    updateSetsForExercise(exercise);
+    updateSetsForExercise(exercise, set);
+    setSets(exercise.sets);
     updateExercisesWithExercise(exercise, index);
   };
 

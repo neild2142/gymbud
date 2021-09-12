@@ -1,7 +1,7 @@
 import React from "react";
 import { Exercise } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
-import Set from "../../components/workout/Set";
+import SetInput from "./SetInput";
 import useSets from "../../services/useSets";
 
 const WorkoutListDrawer: React.FC<{
@@ -18,8 +18,13 @@ const WorkoutListDrawer: React.FC<{
 
   return (
     <BottomDrawer title={currentExercise.name} onClose={onClose}>
-      {[...Array(sets)].map((_set, index) => (
-        <Set setNumber={index + 1} createNewSet={createNewSet} key={index} />
+      {sets.map((set, index) => (
+        <SetInput
+          setNumber={index + 1}
+          createNewSet={createNewSet}
+          key={index}
+          set={set}
+        />
       ))}
     </BottomDrawer>
   );
