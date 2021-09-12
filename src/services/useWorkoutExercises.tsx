@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Exercise } from "./useFetchExercises";
+import { Exercise } from "../shared";
 
 const useWorkoutExercises = (addedExercises: Exercise[] | null) => {
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[]>(

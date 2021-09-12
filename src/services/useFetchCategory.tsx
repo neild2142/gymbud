@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Category } from "./useFetchExercises";
+import { Category } from "../shared";
 import useStorage from "./useStorage";
 import WorkoutAPIClient from "./WorkoutAPIClient";
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Exercise, Category } from "./useFetchExercises";
+import { Exercise, Category } from "../shared";
 
 const CALVES = 14;
 
