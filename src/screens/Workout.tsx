@@ -6,6 +6,7 @@ import ViewContainer from "../components/shared/ViewContainer";
 import Set from "../components/workout/Set";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
+import WorkoutListDrawer from "../components/workout/WorkoutListDrawer";
 import { Exercise } from "../shared";
 import { RootStack } from "./RootStack";
 
@@ -17,16 +18,6 @@ const Workout: React.FC = () => {
   const navigation = useNavigation<WorkoutStack>();
   const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>();
-
-  const renderExerciseDrawer = () =>
-    currentExercise && (
-      <BottomDrawer
-        title={currentExercise.name}
-        onClose={() => setCurrentExercise(null)}
-      >
-        <Set />
-      </BottomDrawer>
-    );
 
   const cancelWorkout = () => {
     navigation.goBack();
@@ -63,7 +54,12 @@ const Workout: React.FC = () => {
         setCurrentExerciseHandler={setCurrentExerciseHandler}
         setExercisesHandler={setExercisesHandler}
       />
-      {renderExerciseDrawer()}
+      {currentExercise && (
+        <WorkoutListDrawer
+          onClose={() => setCurrentExercise(null)}
+          currentExercise={currentExercise}
+        />
+      )}
     </ViewContainer>
   );
 };
