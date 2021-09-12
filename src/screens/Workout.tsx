@@ -1,17 +1,14 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { View } from "react-native";
 import DraggableFlatList, {
-  RenderItemParams,
+  RenderItemParams
 } from "react-native-draggable-flatlist";
-import { Button } from "react-native-elements";
-import { styles } from "../../styles";
 import BottomDrawer from "../components/BottomDrawer";
 import ExerciseCard from "../components/ExerciseCard";
-import Header from "../components/Header";
 import Set from "../components/Set";
 import ViewContainer from "../components/ViewContainer";
+import WorkoutHeader from "../components/WorkoutHeader";
 import { Exercise } from "../services/useFetchExercises";
 import { RootStack } from "./RootStack";
 
@@ -33,6 +30,16 @@ const Workout: React.FC = () => {
         <Set />
       </BottomDrawer>
     );
+
+  const cancelWorkout = () => {
+    navigation.goBack();
+  };
+
+  const addExercise = () => {
+    navigation.navigate("Categories", {
+      exercises: workoutExercises ? workoutExercises : exercisesFromNavigation,
+    });
+  };
 
   /*
     Bug - workoutExercises was not being set to exercises
@@ -61,39 +68,9 @@ const Workout: React.FC = () => {
     />
   );
 
-  const renderHeader = () => (
-    <Header title="Workout">
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-        }}
-      >
-        <Button
-          buttonStyle={[styles.buttonStyle, styles.secondaryButtonStyle]}
-          titleStyle={styles.titleStyle}
-          title="Cancel"
-          onPress={() => navigation.goBack()}
-        />
-        <Button
-          buttonStyle={styles.buttonStyle}
-          titleStyle={styles.titleStyle}
-          title="Add"
-          onPress={() =>
-            navigation.navigate("Categories", {
-              exercises: workoutExercises
-                ? workoutExercises
-                : exercisesFromNavigation,
-            })
-          }
-        />
-      </View>
-    </Header>
-  );
-
   return (
     <ViewContainer style={{ position: "relative" }}>
-      {renderHeader()}
+      <WorkoutHeader cancel={cancelWorkout} add={addExercise} />
       {workoutExercises && renderExercises()}
       {renderExerciseDrawer()}
     </ViewContainer>
