@@ -36,18 +36,12 @@ const useSets = (
 
   const updateSetsForExercise = (exercise: Exercise, set: FormSet) => {
     let currentSets = exercise.sets;
+    const completedSet = { ...set, complete: true };
 
     if (currentSets) {
-      currentSets[currentSets.length - 1] = {
-        ...set,
-        complete: true,
-      };
+      currentSets[currentSets.length - 1] = completedSet;
       exercise.sets = [...currentSets, newSet];
     } else {
-      const completedSet: Set = {
-        ...set,
-        complete: true,
-      };
       exercise.sets = [completedSet, newSet];
     }
   };
