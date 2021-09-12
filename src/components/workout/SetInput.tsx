@@ -8,7 +8,7 @@ const SetInput: React.FC<{
   setNumber: number;
   createNewSet(set: FormSet): void;
   set: Set;
-}> = ({ setNumber, createNewSet, set }) => {
+}> = ({ setNumber, createNewSet, set: { complete, weight, reps } }) => {
   const repsRef = useRef(null);
 
   const { control, handleSubmit } = useForm<FormSet>({
@@ -26,12 +26,12 @@ const SetInput: React.FC<{
           <Text
             style={{
               padding: 12,
-              backgroundColor: set.complete ? "#A6FFA5" : "#606e91",
+              backgroundColor: complete ? "#A6FFA5" : "#606e91",
               borderRadius: 50,
               width: 40,
               height: 40,
               textAlign: "center",
-              color: set.complete ? "black" : "white",
+              color: complete ? "black" : "white",
             }}
           >
             {setNumber}
@@ -42,7 +42,7 @@ const SetInput: React.FC<{
           <Controller
             control={control}
             name="weight"
-            defaultValue={set.weight}
+            defaultValue={weight}
             render={({ field: { onChange, value, onBlur } }) => (
               <TextInput
                 style={stylesheet.input}
@@ -62,7 +62,7 @@ const SetInput: React.FC<{
           <Controller
             control={control}
             name="reps"
-            defaultValue={set.reps}
+            defaultValue={reps}
             render={({ field: { onChange, value, onBlur } }) => (
               <TextInput
                 style={stylesheet.input}
