@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import { BackHandler } from "react-native";
 import { Button } from "react-native-elements";
 import { styles } from "../../styles";
-import CategoryList from "../components/CategoryList";
-import ExerciseListBottomSheet from "../components/ExerciseListBottomSheet";
-import Header from "../components/Header";
-import ViewContainer from "../components/ViewContainer";
+import CategoryHeader from "../components/category/CategoryHeader";
+import CategoryList from "../components/category/CategoryList";
+import ExerciseListBottomSheet from "../components/exercise/ExerciseListBottomSheet";
+import Header from "../components/shared/Header";
+import ViewContainer from "../components/shared/ViewContainer";
 import useFetchCategory from "../services/useFetchCategory";
 import useFetchExercises, { Category } from "../services/useFetchExercises";
 import useWorkoutExercises from "../services/useWorkoutExercises";
@@ -60,19 +61,6 @@ const Categories = () => {
     resetExercises();
   };
 
-  const renderHeader = () => {
-    return (
-      <Header title="Details">
-        <Button
-          buttonStyle={[styles.buttonStyle, styles.secondaryButtonStyle]}
-          titleStyle={styles.titleStyle}
-          title="Back"
-          onPress={() => navigateBack()}
-        />
-      </Header>
-    );
-  };
-
   const hideExerciseList = (): void => {
     setExerciseListVisible(false);
   };
@@ -94,7 +82,7 @@ const Categories = () => {
 
   return (
     <ViewContainer style={{ position: "relative" }}>
-      {renderHeader()}
+      <CategoryHeader cancel={navigateBack} />
       <CategoryList
         onCategoryClick={onCategoryClick}
         categories={categories}

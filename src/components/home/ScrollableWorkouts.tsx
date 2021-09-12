@@ -1,7 +1,7 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
-import Text from "./Text";
-import WorkoutCard from "./WorkoutCard";
+import Text from "../shared/Text";
+import WorkoutCard from "../workout/WorkoutCard";
 
 interface ScrollableWorkoutsProps {
   workouts: number[];

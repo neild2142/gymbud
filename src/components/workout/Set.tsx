@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
-import Text from "../components/Text";
+import Text from "../shared/Text";
 
 const Set = () => {
   const repsRef = useRef(null);

@@ -1,6 +1,6 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
-import { Category } from "../services/useFetchExercises";
+import { Category } from "../../services/useFetchExercises";
 import CategoryCard from "./CategoryCard";
 
 interface CategoryListProps {

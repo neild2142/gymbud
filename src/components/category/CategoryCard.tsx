@@ -1,9 +1,9 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { Category } from "../services/useFetchExercises";
-import Card from "./Card";
-import Text from "./Text";
-import WorkoutTag, { tagColors } from "./WorkoutTag";
+import { Category } from "../../services/useFetchExercises";
+import Card from "../shared/Card";
+import Text from "../shared/Text";
+import WorkoutTag, { tagColors } from "../workout/WorkoutTag";
 
 interface CategoryCardProps {
   category: Category;

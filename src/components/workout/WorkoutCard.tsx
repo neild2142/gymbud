@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Card from "./Card";
-import Text from "./Text";
+import Card from "../shared/Card";
+import Text from "../shared/Text";
 import WorkoutTag from "./WorkoutTag";
 
 interface WorkoutCardProps {

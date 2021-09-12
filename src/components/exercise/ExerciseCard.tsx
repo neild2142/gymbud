@@ -1,10 +1,10 @@
 import React from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
-import { Exercise } from "../services/useFetchExercises";
-import WorkoutTag from "./WorkoutTag";
-import Text from "./Text";
-import muscleData from "../data/muscles";
-import Card from "./Card";
+import { Exercise } from "../../services/useFetchExercises";
+import WorkoutTag from "../workout/WorkoutTag";
+import Text from "../shared/Text";
+import muscleData from "../../data/muscles";
+import Card from "../shared/Card";
 
 interface ExerciseCardProps {
   exercise: Exercise;

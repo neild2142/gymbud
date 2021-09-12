@@ -4,11 +4,11 @@ import React, { useState } from "react";
 import DraggableFlatList, {
   RenderItemParams
 } from "react-native-draggable-flatlist";
-import BottomDrawer from "../components/BottomDrawer";
-import ExerciseCard from "../components/ExerciseCard";
-import Set from "../components/Set";
-import ViewContainer from "../components/ViewContainer";
-import WorkoutHeader from "../components/WorkoutHeader";
+import BottomDrawer from "../components/shared/BottomDrawer";
+import ExerciseCard from "../components/exercise/ExerciseCard";
+import Set from "../components/workout/Set";
+import ViewContainer from "../components/shared/ViewContainer";
+import WorkoutHeader from "../components/workout/WorkoutHeader";
 import { Exercise } from "../services/useFetchExercises";
 import { RootStack } from "./RootStack";
 
