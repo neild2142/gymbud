@@ -1,6 +1,12 @@
 import React, { useRef, useState } from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { Controller, useForm } from "react-hook-form";
+import { StyleSheet, TextInput, View } from "react-native";
 import Text from "../shared/Text";
+
+interface SetForm {
+  weight: string;
+  reps: string;
+}
 
 const Set: React.FC<{
   setNumber: number;
@@ -9,10 +15,14 @@ const Set: React.FC<{
   const repsRef = useRef(null);
   const [complete, setComplete] = useState(false);
 
-  const completeSet = () => {
+  const { control, handleSubmit } = useForm<SetForm>({
+    mode: "onBlur",
+  });
+
+  const completeSet = handleSubmit((set: SetForm) => {
     setComplete(true);
     createNewSet();
-  };
+  });
 
   return (
     <>
@@ -34,21 +44,39 @@ const Set: React.FC<{
         </View>
         <View style={stylesheet.formColumn}>
           <Text>Weight (kg)</Text>
-          <TextInput
-            style={stylesheet.input}
-            keyboardType="number-pad"
-            returnKeyType="next"
-            onSubmitEditing={() => repsRef.current.focus()}
-            blurOnSubmit={false}
+          <Controller
+            control={control}
+            name="weight"
+            render={({ field: { onChange, value, onBlur } }) => (
+              <TextInput
+                style={stylesheet.input}
+                keyboardType="number-pad"
+                returnKeyType="next"
+                onSubmitEditing={() => repsRef.current.focus()}
+                blurOnSubmit={false}
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+              />
+            )}
           />
         </View>
         <View style={stylesheet.formColumn}>
           <Text>Reps</Text>
-          <TextInput
-            style={stylesheet.input}
-            keyboardType="number-pad"
-            ref={repsRef}
-            onSubmitEditing={completeSet}
+          <Controller
+            control={control}
+            name="reps"
+            render={({ field: { onChange, value, onBlur } }) => (
+              <TextInput
+                style={stylesheet.input}
+                keyboardType="number-pad"
+                value={value}
+                onBlur={onBlur}
+                onChangeText={(value) => onChange(value)}
+                ref={repsRef}
+                onSubmitEditing={completeSet}
+              />
+            )}
           />
         </View>
       </View>
