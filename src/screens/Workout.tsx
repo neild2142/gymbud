@@ -20,24 +20,21 @@ import { RootStack } from "./RootStack";
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
 
 const Workout: React.FC = () => {
-  const { exercises } = useRoute<RouteProp<RootStack, "Workout">>().params;
+  const { exercises: exercisesFromNavigation } =
+    useRoute<RouteProp<RootStack, "Workout">>().params;
   const navigation = useNavigation<WorkoutStack>();
   const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>();
 
-  const renderExerciseDrawer = () => {
-    console.log(currentExercise);
-    return (
-      currentExercise && (
-        <BottomDrawer
-          title={currentExercise.name}
-          onClose={() => setCurrentExercise(null)}
-        >
-          <Set />
-        </BottomDrawer>
-      )
+  const renderExerciseDrawer = () =>
+    currentExercise && (
+      <BottomDrawer
+        title={currentExercise.name}
+        onClose={() => setCurrentExercise(null)}
+      >
+        <Set />
+      </BottomDrawer>
     );
-  };
 
   /*
     Bug - workoutExercises was not being set to exercises
@@ -45,8 +42,8 @@ const Workout: React.FC = () => {
     navigation renders its components.
   */
   React.useEffect(() => {
-    setWorkoutExercises(exercises);
-  }, [exercises]);
+    setWorkoutExercises(exercisesFromNavigation);
+  }, [exercisesFromNavigation]);
 
   const renderRightActions = () => {
     return (
@@ -103,7 +100,9 @@ const Workout: React.FC = () => {
           title="Add"
           onPress={() =>
             navigation.navigate("Categories", {
-              exercises: workoutExercises ? workoutExercises : exercises,
+              exercises: workoutExercises
+                ? workoutExercises
+                : exercisesFromNavigation,
             })
           }
         />

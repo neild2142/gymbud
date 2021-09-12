@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Category } from "../services/useFetchExercises";
 import CategoryCard from "./CategoryCard";
 
@@ -15,22 +15,24 @@ const CategoryList: React.FC<CategoryListProps> = ({
   exercisesForCategory,
 }) => {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "space-around",
-      }}
-    >
-      {categories.map((category, index) => (
-        <CategoryCard
-          key={`${category.name}-${category.id}`}
-          category={{ ...category, categoryIndex: index }}
-          onCategoryClick={onCategoryClick}
-          numberOfExercisesSelected={exercisesForCategory(category.id)}
-        />
-      ))}
-    </View>
+    <ScrollView>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+        }}
+      >
+        {categories.map((category, index) => (
+          <CategoryCard
+            key={`${category.name}-${category.id}`}
+            category={{ ...category, categoryIndex: index }}
+            onCategoryClick={onCategoryClick}
+            numberOfExercisesSelected={exercisesForCategory(category.id)}
+          />
+        ))}
+      </View>
+    </ScrollView>
   );
 };
 

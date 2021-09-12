@@ -51,16 +51,16 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             />
           ))}
         </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={{ color: "white" }}>3 SETS | 12 REPS</Text>
-        </View>
       </Card>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  card: { width: "100%", marginRight: 0, marginTop: 20 },
+  card: {
+    width: "100%",
+    marginTop: 20,
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   muscles: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 10,
     flexWrap: "wrap",
     width: "100%",
   },
