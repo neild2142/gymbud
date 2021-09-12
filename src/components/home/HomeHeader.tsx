@@ -4,17 +4,17 @@ import { styles } from "../../../styles";
 import Header from "../shared/Header";
 import { HeaderProps } from "../../shared";
 
-const CategoryHeader: React.FC<HeaderProps> = ({ back }) => {
+const HomeHeader: React.FC<HeaderProps> = ({ next }) => {
   return (
-    <Header title="Details">
+    <Header title="Welcome Back, Neil!">
       <Button
-        buttonStyle={[styles.buttonStyle, styles.secondaryButtonStyle]}
+        buttonStyle={styles.buttonStyle}
         titleStyle={styles.titleStyle}
-        title="Back"
-        onPress={back}
+        title="New"
+        onPress={next}
       />
     </Header>
   );
 };
 
-export default CategoryHeader;
+export default HomeHeader;

@@ -5,7 +5,7 @@ import { styles } from "../../../styles";
 import Header from "../shared/Header";
 import { HeaderProps } from "../../shared";
 
-const WorkoutHeader: React.FC<HeaderProps> = ({ cancel, add }) => {
+const WorkoutHeader: React.FC<HeaderProps> = ({ back, next }) => {
   return (
     <Header title="Workout">
       <View
@@ -18,13 +18,13 @@ const WorkoutHeader: React.FC<HeaderProps> = ({ cancel, add }) => {
           buttonStyle={[styles.buttonStyle, styles.secondaryButtonStyle]}
           titleStyle={styles.titleStyle}
           title="Cancel"
-          onPress={cancel}
+          onPress={back}
         />
         <Button
           buttonStyle={styles.buttonStyle}
           titleStyle={styles.titleStyle}
           title="Add"
-          onPress={add}
+          onPress={next}
         />
       </View>
     </Header>

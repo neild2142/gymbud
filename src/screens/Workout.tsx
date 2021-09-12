@@ -2,7 +2,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import DraggableFlatList, {
-  RenderItemParams
+  RenderItemParams,
 } from "react-native-draggable-flatlist";
 import BottomDrawer from "../components/shared/BottomDrawer";
 import ExerciseCard from "../components/exercise/ExerciseCard";
@@ -70,7 +70,7 @@ const Workout: React.FC = () => {
 
   return (
     <ViewContainer style={{ position: "relative" }}>
-      <WorkoutHeader cancel={cancelWorkout} add={addExercise} />
+      <WorkoutHeader back={cancelWorkout} next={addExercise} />
       {workoutExercises && renderExercises()}
       {renderExerciseDrawer()}
     </ViewContainer>

@@ -2,12 +2,9 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import { BackHandler } from "react-native";
-import { Button } from "react-native-elements";
-import { styles } from "../../styles";
 import CategoryHeader from "../components/category/CategoryHeader";
 import CategoryList from "../components/category/CategoryList";
 import ExerciseListBottomSheet from "../components/exercise/ExerciseListBottomSheet";
-import Header from "../components/shared/Header";
 import ViewContainer from "../components/shared/ViewContainer";
 import useFetchCategory from "../services/useFetchCategory";
 import useFetchExercises, { Category } from "../services/useFetchExercises";
@@ -82,7 +79,7 @@ const Categories = () => {
 
   return (
     <ViewContainer style={{ position: "relative" }}>
-      <CategoryHeader cancel={navigateBack} />
+      <CategoryHeader back={navigateBack} />
       <CategoryList
         onCategoryClick={onCategoryClick}
         categories={categories}

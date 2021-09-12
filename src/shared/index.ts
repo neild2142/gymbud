@@ -1,4 +1,4 @@
 export interface HeaderProps {
-  cancel(): void;
-  add?(): void;
+  back?(): void;
+  next?(): void;
 }
