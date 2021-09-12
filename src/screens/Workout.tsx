@@ -1,18 +1,16 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 import DraggableFlatList, {
   RenderItemParams,
 } from "react-native-draggable-flatlist";
 import { Button } from "react-native-elements";
-import Swipeable from "react-native-gesture-handler/Swipeable";
 import { styles } from "../../styles";
 import BottomDrawer from "../components/BottomDrawer";
 import ExerciseCard from "../components/ExerciseCard";
 import Header from "../components/Header";
 import Set from "../components/Set";
-import Text from "../components/Text";
 import ViewContainer from "../components/ViewContainer";
 import { Exercise } from "../services/useFetchExercises";
 import { RootStack } from "./RootStack";
@@ -45,29 +43,12 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercisesFromNavigation);
   }, [exercisesFromNavigation]);
 
-  const renderRightActions = () => {
-    return (
-      <View style={stylesheet.swipeableAction}>
-        <Text style={{ color: "white" }}>Delete</Text>
-      </View>
-    );
-  };
-
-  const swipeFromRightOpen = (id: number) =>
-    setWorkoutExercises(workoutExercises!.filter((e) => e.id !== id));
-
   const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
-    <Swipeable
-      renderRightActions={renderRightActions}
-      onSwipeableRightOpen={() => swipeFromRightOpen(exercise.id)}
-      key={exercise.id}
-    >
-      <ExerciseCard
-        exercise={exercise}
-        setExercise={setCurrentExercise}
-        drag={drag}
-      />
-    </Swipeable>
+    <ExerciseCard
+      exercise={exercise}
+      setExercise={setCurrentExercise}
+      drag={drag}
+    />
   );
 
   const renderExercises = () => (
@@ -118,18 +99,5 @@ const Workout: React.FC = () => {
     </ViewContainer>
   );
 };
-
-const stylesheet = StyleSheet.create({
-  swipeableAction: {
-    flex: 1,
-    padding: 20,
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#f74949",
-    justifyContent: "flex-end",
-    borderRadius: 20,
-    marginTop: 20,
-  },
-});
 
 export default Workout;
