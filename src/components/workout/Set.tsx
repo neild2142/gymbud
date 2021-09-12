@@ -12,7 +12,7 @@ const Set = () => {
           <Text
             style={{
               padding: 12,
-              backgroundColor: "#FC85AE",
+              backgroundColor: "#606e91",
               borderRadius: 50,
               width: 40,
               height: 40,
@@ -67,6 +67,7 @@ const stylesheet = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
+    borderColor: "#d3d3d3",
     padding: 10,
     borderRadius: 5,
     width: 80,

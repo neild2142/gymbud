@@ -6,9 +6,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Text from "../shared/Text";
-import { Category, Exercise } from "../../services/useFetchExercises";
+import { Category, Exercise } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
+import Text from "../shared/Text";
 
 interface ExerciseListBottomSheetProps {
   hideExerciseList(): void;

@@ -80,15 +80,16 @@ const styles = StyleSheet.create({
   },
   headingContainer: {
     flexDirection: "row",
-    paddingTop: 25,
+    paddingTop: 35,
     paddingBottom: 25,
     paddingLeft: 15,
     alignItems: "center",
   },
   headingTitle: {
-    fontSize: 32,
+    fontSize: 24,
     color: "black",
     marginLeft: 15,
+    width: "80%",
   },
 });
 
