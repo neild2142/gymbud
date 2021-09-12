@@ -1,22 +1,7 @@
 import { useEffect, useState } from "react";
+import { Category, Exercise } from "../shared";
 import useStorage from "./useStorage";
 import WorkoutAPIClient from "./WorkoutAPIClient";
-
-export interface Category {
-  id: number;
-  name: string;
-  categoryIndex?: number;
-}
-
-export interface Exercise {
-  name: string;
-  id: number;
-  description: string;
-  muscles: number[];
-  muscles_secondary: number[];
-  categoryName: string;
-  category: number;
-}
 
 const useFetchExercises = (currentCategory: Category | null) => {
   const [exercises, setExercises] = useState<Exercise[] | null>(null);

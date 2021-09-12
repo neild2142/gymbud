@@ -1,15 +1,12 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import DraggableFlatList, {
-  RenderItemParams,
-} from "react-native-draggable-flatlist";
 import BottomDrawer from "../components/shared/BottomDrawer";
-import ExerciseCard from "../components/exercise/ExerciseCard";
-import Set from "../components/workout/Set";
 import ViewContainer from "../components/shared/ViewContainer";
+import Set from "../components/workout/Set";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
-import { Exercise } from "../services/useFetchExercises";
+import WorkoutList from "../components/workout/WorkoutList";
+import { Exercise } from "../shared";
 import { RootStack } from "./RootStack";
 
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
@@ -41,6 +38,14 @@ const Workout: React.FC = () => {
     });
   };
 
+  const setCurrentExerciseHandler = (exercise: Exercise) => {
+    setCurrentExercise(exercise);
+  };
+
+  const setExercisesHandler = (exercises: Exercise[]) => {
+    setWorkoutExercises(exercises);
+  };
+
   /*
     Bug - workoutExercises was not being set to exercises
     Perhaps this was down to the manner in which react native
@@ -50,28 +55,14 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercisesFromNavigation);
   }, [exercisesFromNavigation]);
 
-  const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
-    <ExerciseCard
-      exercise={exercise}
-      setExercise={setCurrentExercise}
-      drag={drag}
-    />
-  );
-
-  const renderExercises = () => (
-    <DraggableFlatList
-      data={workoutExercises!}
-      keyExtractor={(item, index) => `${item.name} - ${index}`}
-      showsVerticalScrollIndicator={false}
-      renderItem={renderItem}
-      onDragEnd={({ data }) => setWorkoutExercises(data)}
-    />
-  );
-
   return (
     <ViewContainer style={{ position: "relative" }}>
       <WorkoutHeader back={cancelWorkout} next={addExercise} />
-      {workoutExercises && renderExercises()}
+      <WorkoutList
+        exercises={workoutExercises}
+        setCurrentExerciseHandler={setCurrentExerciseHandler}
+        setExercisesHandler={setExercisesHandler}
+      />
       {renderExerciseDrawer()}
     </ViewContainer>
   );
