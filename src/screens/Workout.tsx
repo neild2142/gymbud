@@ -1,9 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
-import BottomDrawer from "../components/shared/BottomDrawer";
 import ViewContainer from "../components/shared/ViewContainer";
-import Set from "../components/workout/Set";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
 import WorkoutListDrawer from "../components/workout/WorkoutListDrawer";
@@ -54,10 +52,12 @@ const Workout: React.FC = () => {
         setCurrentExerciseHandler={setCurrentExerciseHandler}
         setExercisesHandler={setExercisesHandler}
       />
-      {currentExercise && (
+      {currentExercise && workoutExercises && (
         <WorkoutListDrawer
           onClose={() => setCurrentExercise(null)}
           currentExercise={currentExercise}
+          workoutExercises={workoutExercises}
+          setWorkoutExercises={setExercisesHandler}
         />
       )}
     </ViewContainer>
