@@ -1,9 +1,18 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 import Text from "../shared/Text";
 
-const Set = () => {
+const Set: React.FC<{
+  setNumber: number;
+  createNewSet(): void;
+}> = ({ setNumber, createNewSet }) => {
   const repsRef = useRef(null);
+  const [complete, setComplete] = useState(false);
+
+  const completeSet = () => {
+    setComplete(true);
+    createNewSet();
+  };
 
   return (
     <>
@@ -12,15 +21,15 @@ const Set = () => {
           <Text
             style={{
               padding: 12,
-              backgroundColor: "#606e91",
+              backgroundColor: complete ? "#A6FFA5" : "#606e91",
               borderRadius: 50,
               width: 40,
               height: 40,
               textAlign: "center",
-              color: "white",
+              color: complete ? "black" : "white",
             }}
           >
-            1
+            {setNumber}
           </Text>
         </View>
         <View style={stylesheet.formColumn}>
@@ -39,6 +48,7 @@ const Set = () => {
             style={stylesheet.input}
             keyboardType="number-pad"
             ref={repsRef}
+            onSubmitEditing={completeSet}
           />
         </View>
       </View>

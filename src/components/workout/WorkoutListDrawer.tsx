@@ -7,9 +7,13 @@ const WorkoutListDrawer: React.FC<{
   currentExercise: Exercise;
   onClose(): void;
 }> = ({ currentExercise, onClose }) => {
+  const [sets, setSets] = React.useState(1);
+
   return (
     <BottomDrawer title={currentExercise.name} onClose={onClose}>
-      <Set />
+      {[...Array(sets)].map((_set, index) => (
+        <Set setNumber={index + 1} createNewSet={() => setSets(sets + 1)} />
+      ))}
     </BottomDrawer>
   );
 };

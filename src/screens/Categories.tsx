@@ -7,8 +7,9 @@ import CategoryList from "../components/category/CategoryList";
 import ExerciseListBottomSheet from "../components/exercise/ExerciseListBottomSheet";
 import ViewContainer from "../components/shared/ViewContainer";
 import useFetchCategory from "../services/useFetchCategory";
-import useFetchExercises, { Category } from "../services/useFetchExercises";
+import useFetchExercises from "../services/useFetchExercises";
 import useWorkoutExercises from "../services/useWorkoutExercises";
+import { Category } from "../shared";
 import { RootStack } from "./RootStack";
 
 type NewWorkoutStack = StackNavigationProp<RootStack, "Categories">;
