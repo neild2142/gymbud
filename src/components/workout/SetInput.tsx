@@ -15,7 +15,17 @@ const SetInput: React.FC<{
     mode: "onBlur",
   });
 
+  const setHasEmptyElements = (set: FormSet) => {
+    if (set.reps === "" || set.weight === "") {
+      return true;
+    }
+    return false;
+  };
+
   const completeSet = handleSubmit((set: FormSet) => {
+    if (setHasEmptyElements(set)) {
+      return;
+    }
     createNewSet(set);
   });
 
@@ -68,6 +78,7 @@ const SetInput: React.FC<{
                 style={stylesheet.input}
                 keyboardType="number-pad"
                 value={value}
+                returnKeyType="go"
                 onBlur={onBlur}
                 onChangeText={(value) => onChange(value)}
                 ref={repsRef}
