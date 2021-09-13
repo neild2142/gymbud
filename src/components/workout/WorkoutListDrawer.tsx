@@ -10,18 +10,21 @@ const WorkoutListDrawer: React.FC<{
   workoutExercises: Exercise[];
   setWorkoutExercises(exercises: Exercise[]): void;
 }> = ({ currentExercise, onClose, workoutExercises, setWorkoutExercises }) => {
-  const [sets, createNewSet] = useSets(
+  const { sets, addSetToExercise, updateSet } = useSets(
     currentExercise,
     workoutExercises,
     setWorkoutExercises
   );
 
+  console.log(sets);
+
   return (
     <BottomDrawer title={currentExercise.name} onClose={onClose}>
       {sets.map((set, index) => (
         <SetInput
-          setNumber={index + 1}
-          createNewSet={createNewSet}
+          setNumber={index}
+          createNewSet={addSetToExercise}
+          updateSet={updateSet}
           key={index}
           set={set}
         />

@@ -8,7 +8,13 @@ const SetInput: React.FC<{
   setNumber: number;
   createNewSet(set: FormSet): void;
   set: Set;
-}> = ({ setNumber, createNewSet, set: { complete, weight, reps } }) => {
+  updateSet(setNumber: number, set: FormSet): void;
+}> = ({
+  setNumber,
+  createNewSet,
+  set: { complete, weight, reps },
+  updateSet,
+}) => {
   const repsRef = useRef(null);
 
   const { control, handleSubmit } = useForm<FormSet>({
@@ -24,6 +30,10 @@ const SetInput: React.FC<{
 
   const completeSet = handleSubmit((set: FormSet) => {
     if (setHasEmptyElements(set)) {
+      return;
+    }
+    if (complete) {
+      updateSet(setNumber, set);
       return;
     }
     createNewSet(set);
@@ -44,7 +54,7 @@ const SetInput: React.FC<{
               color: complete ? "black" : "white",
             }}
           >
-            {setNumber}
+            {setNumber + 1}
           </Text>
         </View>
         <View style={stylesheet.formColumn}>
@@ -58,6 +68,7 @@ const SetInput: React.FC<{
                 style={stylesheet.input}
                 keyboardType="number-pad"
                 returnKeyType="next"
+                // @ts-ignore
                 onSubmitEditing={() => repsRef.current.focus()}
                 blurOnSubmit={false}
                 value={value}

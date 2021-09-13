@@ -1,11 +1,17 @@
 import React from "react";
 import { Exercise, FormSet, Set } from "../shared";
 
+interface SetControl {
+  sets: Set[];
+  addSetToExercise(set: FormSet): void;
+  updateSet(setNumber: number, set: FormSet): void;
+}
+
 const useSets = (
   currentExercise: Exercise,
   workoutExercises: Exercise[],
   setWorkoutExercises: { (exercises: Exercise[]): void }
-): [Set[], (set: FormSet) => void] => {
+): SetControl => {
   const newSet = {
     weight: "",
     reps: "",
@@ -35,7 +41,11 @@ const useSets = (
   };
 
   const updateSetsForExercise = (exercise: Exercise, set: FormSet) => {
-    let currentSets = exercise.sets;
+    let currentSets;
+    if (exercise.sets) {
+      currentSets = [...exercise.sets];
+    }
+
     const completedSet = { ...set, complete: true };
     const setToAdd = {
       ...newSet,
@@ -67,7 +77,25 @@ const useSets = (
     updateExercisesWithExercise(exercise, index);
   };
 
-  return [sets, addSetToExercise];
+  const updateSet = (setNumber: number, set: FormSet) => {
+    const { exercise } = getExerciseAndIndex();
+    if (!exercise) {
+      return;
+    }
+
+    let currentSets;
+    if (exercise.sets) {
+      currentSets = [...exercise.sets];
+    }
+
+    if (!currentSets) {
+      return;
+    }
+    currentSets[setNumber] = { ...set, complete: true };
+    exercise.sets = [...currentSets];
+  };
+
+  return { sets, addSetToExercise, updateSet };
 };
 
 export default useSets;
