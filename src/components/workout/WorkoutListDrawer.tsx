@@ -7,16 +7,8 @@ import useSets from "../../services/useSets";
 const WorkoutListDrawer: React.FC<{
   currentExercise: Exercise;
   onClose(): void;
-  workoutExercises: Exercise[];
-  setWorkoutExercises(exercises: Exercise[]): void;
-}> = ({ currentExercise, onClose, workoutExercises, setWorkoutExercises }) => {
-  const { sets, addSetToExercise, updateSet } = useSets(
-    currentExercise,
-    workoutExercises,
-    setWorkoutExercises
-  );
-
-  console.log(sets);
+}> = ({ currentExercise, onClose }) => {
+  const { sets, addSetToExercise, updateSet } = useSets(currentExercise);
 
   return (
     <BottomDrawer title={currentExercise.name} onClose={onClose}>

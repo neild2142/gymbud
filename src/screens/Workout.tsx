@@ -56,8 +56,6 @@ const Workout: React.FC = () => {
         <WorkoutListDrawer
           onClose={() => setCurrentExercise(null)}
           currentExercise={currentExercise}
-          workoutExercises={workoutExercises}
-          setWorkoutExercises={setExercisesHandler}
         />
       )}
     </ViewContainer>
