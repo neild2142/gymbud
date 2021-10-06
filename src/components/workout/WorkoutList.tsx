@@ -4,6 +4,7 @@ import DraggableFlatList, {
 } from "react-native-draggable-flatlist";
 import { Exercise } from "../../shared";
 import ExerciseCard from "../exercise/ExerciseCard";
+import Deletable from "../shared/Deletable";
 
 const WorkoutList: React.FC<{
   exercises: Exercise[] | null | undefined;
@@ -15,11 +16,13 @@ const WorkoutList: React.FC<{
   }
 
   const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
-    <ExerciseCard
-      exercise={exercise}
-      setExercise={() => setCurrentExerciseHandler(exercise)}
-      drag={drag}
-    />
+    <Deletable deletable={exercise} onDismiss={() => console.log("on dismiss")}>
+      <ExerciseCard
+        exercise={exercise}
+        setExercise={() => setCurrentExerciseHandler(exercise)}
+        drag={drag}
+      />
+    </Deletable>
   );
 
   return (
