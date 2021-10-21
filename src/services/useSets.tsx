@@ -4,7 +4,7 @@ import { Exercise, FormSet, Set } from "../shared";
 interface SetControl {
   sets: Set[];
   addSetToExercise(set: FormSet): Set[];
-  updateSet(setNumber: number, set: FormSet): void;
+  updateSet(setNumber: number, set: FormSet): Set[];
 }
 
 const useSets = (currentExercise: Exercise): SetControl => {
@@ -51,17 +51,11 @@ const useSets = (currentExercise: Exercise): SetControl => {
   };
 
   const updateSet = (setNumber: number, set: FormSet) => {
-    let currentSets;
+    const updatedSets = [...sets];
+    updatedSets[setNumber] = { ...set, complete: true };
+    setSets(updatedSets);
 
-    if (currentExercise.sets) {
-      currentSets = [...currentExercise.sets];
-    }
-
-    if (!currentSets) {
-      return;
-    }
-    currentSets[setNumber] = { ...set, complete: true };
-    currentExercise.sets = [...currentSets];
+    return updatedSets;
   };
 
   return { sets, addSetToExercise, updateSet };
