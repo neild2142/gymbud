@@ -1,9 +1,10 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import React from "react";
-import { Dimensions, StyleSheet, Text } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
+  PanGestureHandlerProps,
 } from "react-native-gesture-handler";
 import Animated, {
   runOnJS,
@@ -18,7 +19,8 @@ export const LIST_ITEM_HEIGHT = 120;
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.2;
 
-interface DeletableProps {
+interface DeletableProps
+  extends Pick<PanGestureHandlerProps, "simultaneousHandlers"> {
   deletable: any;
   onDismiss(exercise: Exercise): void;
 }
@@ -27,6 +29,7 @@ const Deletable: React.FC<DeletableProps> = ({
   children,
   deletable,
   onDismiss,
+  simultaneousHandlers,
 }) => {
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
@@ -86,7 +89,10 @@ const Deletable: React.FC<DeletableProps> = ({
           color={"#d65656"}
         />
       </Animated.View>
-      <PanGestureHandler onGestureEvent={panGesture}>
+      <PanGestureHandler
+        onGestureEvent={panGesture}
+        simultaneousHandlers={simultaneousHandlers}
+      >
         <Animated.View style={[styles.task, rStyle]}>{children}</Animated.View>
       </PanGestureHandler>
     </Animated.View>

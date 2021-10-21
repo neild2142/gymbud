@@ -1,7 +1,5 @@
-import React from "react";
-import DraggableFlatList, {
-  RenderItemParams,
-} from "react-native-draggable-flatlist";
+import React, { useRef } from "react";
+import { ScrollView } from "react-native-gesture-handler";
 import { Exercise } from "../../shared";
 import ExerciseCard from "../exercise/ExerciseCard";
 import Deletable from "../shared/Deletable";
@@ -15,29 +13,26 @@ const WorkoutList: React.FC<{
     return null;
   }
 
-  const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
-    <Deletable
-      deletable={exercise}
-      onDismiss={(exercise) =>
-        setExercisesHandler(exercises.filter((e) => e.id !== exercise.id))
-      }
-    >
-      <ExerciseCard
-        exercise={exercise}
-        setExercise={() => setCurrentExerciseHandler(exercise)}
-        drag={drag}
-      />
-    </Deletable>
-  );
+  const scrollRef = useRef(null);
 
   return (
-    <DraggableFlatList
-      data={exercises}
-      keyExtractor={(item, index) => `${item.name} - ${index}`}
-      showsVerticalScrollIndicator={false}
-      renderItem={renderItem}
-      onDragEnd={({ data }) => setExercisesHandler(data)}
-    />
+    <ScrollView ref={scrollRef}>
+      {exercises.map((exercise) => (
+        <Deletable
+          deletable={exercise}
+          onDismiss={(exercise) =>
+            setExercisesHandler(exercises.filter((e) => e.id !== exercise.id))
+          }
+          simultaneousHandlers={scrollRef}
+          key={exercise.id}
+        >
+          <ExerciseCard
+            exercise={exercise}
+            setExercise={() => setCurrentExerciseHandler(exercise)}
+          />
+        </Deletable>
+      ))}
+    </ScrollView>
   );
 };
 

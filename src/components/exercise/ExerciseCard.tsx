@@ -10,7 +10,7 @@ import { LIST_ITEM_HEIGHT } from "../shared/Deletable";
 interface ExerciseCardProps {
   exercise: Exercise;
   setExercise(exercise: Exercise): void;
-  drag(): void;
+  drag?(): void;
 }
 
 const ExerciseCard: React.FC<ExerciseCardProps> = ({
