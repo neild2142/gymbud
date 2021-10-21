@@ -3,7 +3,7 @@ import { Exercise, FormSet, Set } from "../shared";
 
 interface SetControl {
   sets: Set[];
-  addSetToExercise(set: FormSet): void;
+  addSetToExercise(set: FormSet): Set[];
   updateSet(setNumber: number, set: FormSet): void;
 }
 
@@ -19,10 +19,14 @@ const useSets = (currentExercise: Exercise): SetControl => {
 
   const [sets, setSets] = React.useState(initialSets);
 
-  const updateSetsForExercise = (set: FormSet) => {
+  const hasCompletedASet = () => {
+    return sets.length > 1;
+  };
+
+  const getUpdatedSets = (set: FormSet) => {
     let currentSets;
-    if (currentExercise.sets) {
-      currentSets = [...currentExercise.sets];
+    if (hasCompletedASet()) {
+      currentSets = [...sets];
     }
 
     const completedSet = { ...set, complete: true };
@@ -34,15 +38,16 @@ const useSets = (currentExercise: Exercise): SetControl => {
 
     if (currentSets) {
       currentSets[currentSets.length - 1] = completedSet;
-      currentExercise.sets = [...currentSets, setToAdd];
-    } else {
-      currentExercise.sets = [completedSet, setToAdd];
+      return [...currentSets, setToAdd];
     }
+    return [completedSet, setToAdd];
   };
 
   const addSetToExercise = (set: FormSet) => {
-    updateSetsForExercise(set);
-    setSets(currentExercise.sets);
+    const updatedSets = getUpdatedSets(set);
+    setSets(updatedSets);
+
+    return updatedSets;
   };
 
   const updateSet = (setNumber: number, set: FormSet) => {

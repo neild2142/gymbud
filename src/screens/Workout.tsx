@@ -5,7 +5,7 @@ import ViewContainer from "../components/shared/ViewContainer";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
 import WorkoutListDrawer from "../components/workout/WorkoutListDrawer";
-import { Exercise } from "../shared";
+import { Exercise, Set } from "../shared";
 import { RootStack } from "./RootStack";
 
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
@@ -27,6 +27,31 @@ const Workout: React.FC = () => {
     });
   };
 
+  const persistCurrentExerciseState = () => {
+    if (!workoutExercises) {
+      return;
+    }
+    if (!currentExercise) {
+      return;
+    }
+    const currentExerciseIndex = workoutExercises.findIndex(
+      (we) => we.id === currentExercise.id
+    );
+
+    if (currentExerciseIndex === -1) {
+      return;
+    }
+
+    const tempWorkoutExercises = [...workoutExercises];
+    tempWorkoutExercises[currentExerciseIndex] = currentExercise;
+    setWorkoutExercises(tempWorkoutExercises);
+  };
+
+  const onCloseHandler = () => {
+    persistCurrentExerciseState();
+    setCurrentExercise(null);
+  };
+
   const setCurrentExerciseHandler = (exercise: Exercise) => {
     setCurrentExercise(exercise);
   };
@@ -44,6 +69,12 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercisesFromNavigation);
   }, [exercisesFromNavigation]);
 
+  const updateSets = (sets: Set[]) => {
+    if (currentExercise) {
+      setCurrentExercise({ ...currentExercise, sets });
+    }
+  };
+
   return (
     <ViewContainer style={{ position: "relative" }}>
       <WorkoutHeader back={cancelWorkout} next={addExercise} />
@@ -54,8 +85,9 @@ const Workout: React.FC = () => {
       />
       {currentExercise && workoutExercises && (
         <WorkoutListDrawer
-          onClose={() => setCurrentExercise(null)}
+          onClose={onCloseHandler}
           currentExercise={currentExercise}
+          updateSets={updateSets}
         />
       )}
     </ViewContainer>
