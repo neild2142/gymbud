@@ -16,7 +16,7 @@ import { Exercise } from "../../shared";
 
 const LIST_ITEM_HEIGHT = 70;
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.3;
+const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.2;
 
 interface DeletableProps {
   deletable: any;
@@ -83,13 +83,11 @@ const Deletable: React.FC<DeletableProps> = ({
         <FontAwesome5
           name={"trash-alt"}
           size={LIST_ITEM_HEIGHT * 0.4}
-          color={"red"}
+          color={"#d65656"}
         />
       </Animated.View>
       <PanGestureHandler onGestureEvent={panGesture}>
-        <Animated.View style={[styles.task, rStyle]}>
-          <Text style={styles.taskTitle}>Lorem, ipsum.</Text>
-        </Animated.View>
+        <Animated.View style={[styles.task, rStyle]}>{children}</Animated.View>
       </PanGestureHandler>
     </Animated.View>
   );
@@ -101,22 +99,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   task: {
-    width: "90%",
+    width: "95%",
     height: LIST_ITEM_HEIGHT,
-    justifyContent: "center",
-    paddingLeft: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    elevation: 5,
-  },
-  taskTitle: {
-    fontSize: 16,
   },
   iconContainer: {
     height: LIST_ITEM_HEIGHT,
     width: LIST_ITEM_HEIGHT,
     position: "absolute",
-    right: "10%",
+    right: "5%",
     justifyContent: "center",
     alignItems: "center",
   },

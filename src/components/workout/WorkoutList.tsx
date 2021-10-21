@@ -16,7 +16,12 @@ const WorkoutList: React.FC<{
   }
 
   const renderItem = ({ item: exercise, drag }: RenderItemParams<Exercise>) => (
-    <Deletable deletable={exercise} onDismiss={() => console.log("on dismiss")}>
+    <Deletable
+      deletable={exercise}
+      onDismiss={(exercise) =>
+        setExercisesHandler(exercises.filter((e) => e.id !== exercise.id))
+      }
+    >
       <ExerciseCard
         exercise={exercise}
         setExercise={() => setCurrentExerciseHandler(exercise)}

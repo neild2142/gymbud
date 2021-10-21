@@ -1,10 +1,10 @@
 import React from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
-import { Exercise } from "../../services/useFetchExercises";
 import WorkoutTag from "../workout/WorkoutTag";
 import Text from "../shared/Text";
 import muscleData from "../../data/muscles";
 import Card from "../shared/Card";
+import { Exercise } from "../../shared";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -31,25 +31,25 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           </Text>
           <WorkoutTag
             bodyPart={exercise.categoryName}
-            color="#FFEBA5"
+            color="#fff1a5"
             style={{ marginRight: 0 }}
           />
         </View>
         <View style={styles.muscles}>
-          {exercise.muscles.map((mainMuscle) => (
+          {/* {exercise.muscles.map((mainMuscle) => (
             <WorkoutTag
               key={`${exercise.name}-${mainMuscle}`}
               bodyPart={muscleData[mainMuscle].name}
               color="#cafbff"
             />
-          ))}
-          {exercise.muscles_secondary.map((secondary) => (
+          ))} */}
+          {/* {exercise.muscles_secondary.map((secondary) => (
             <WorkoutTag
               key={`${exercise.name}-${secondary}`}
               bodyPart={muscleData[secondary].name}
               color="#ebebeb"
             />
-          ))}
+          ))} */}
         </View>
       </Card>
     </TouchableOpacity>
@@ -59,7 +59,6 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     width: "100%",
-    marginTop: 20,
   },
   header: {
     flexDirection: "row",
