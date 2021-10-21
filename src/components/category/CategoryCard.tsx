@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
-import { Category } from "../../services/useFetchExercises";
+import { Category } from "../../shared";
 import Card from "../shared/Card";
 import Text from "../shared/Text";
 import WorkoutTag, { tagColors } from "../workout/WorkoutTag";
@@ -79,9 +79,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     >
       <Card
         style={{
-          width: 190,
+          width: 170,
           height: 170,
-          marginBottom: 20,
+          marginBottom: 10,
           marginRight: 0,
         }}
       >
