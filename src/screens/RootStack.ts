@@ -1,4 +1,4 @@
-import { Exercise } from "../services/useFetchExercises";
+import { Exercise } from "../shared";
 
 export type RootStack = {
   Home: undefined;
