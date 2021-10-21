@@ -14,7 +14,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { Exercise } from "../../shared";
 
-const LIST_ITEM_HEIGHT = 70;
+export const LIST_ITEM_HEIGHT = 120;
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.2;
 
@@ -82,7 +82,7 @@ const Deletable: React.FC<DeletableProps> = ({
       <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
         <FontAwesome5
           name={"trash-alt"}
-          size={LIST_ITEM_HEIGHT * 0.4}
+          size={LIST_ITEM_HEIGHT * 0.2}
           color={"#d65656"}
         />
       </Animated.View>

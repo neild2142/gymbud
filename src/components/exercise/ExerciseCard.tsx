@@ -5,6 +5,7 @@ import Text from "../shared/Text";
 import muscleData from "../../data/muscles";
 import Card from "../shared/Card";
 import { Exercise } from "../../shared";
+import { LIST_ITEM_HEIGHT } from "../shared/Deletable";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -59,6 +60,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
 const styles = StyleSheet.create({
   card: {
     width: "100%",
+    height: LIST_ITEM_HEIGHT,
   },
   header: {
     flexDirection: "row",
