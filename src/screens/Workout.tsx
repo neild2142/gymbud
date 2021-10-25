@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ViewContainer from "../components/shared/ViewContainer";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
-import WorkoutListDrawer from "../components/workout/WorkoutListDrawer";
+import SetDrawer from "../components/workout/SetDrawer";
 import { Exercise, Set } from "../shared";
 import { RootStack } from "./RootStack";
 
@@ -14,8 +14,11 @@ const Workout: React.FC = () => {
   const { exercises: exercisesFromNavigation } =
     useRoute<RouteProp<RootStack, "Workout">>().params;
   const navigation = useNavigation<WorkoutStack>();
-  const [currentExercise, setCurrentExercise] = useState<Exercise | null>(null);
-  const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>();
+  const [currentExercise, setCurrentExercise] = useState<Exercise>();
+  const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>(
+    null
+  );
+  const [setListVisible, setSetListVisible] = useState(false);
 
   const cancelWorkout = () => {
     navigation.goBack();
@@ -28,10 +31,7 @@ const Workout: React.FC = () => {
   };
 
   const persistCurrentExerciseState = () => {
-    if (!workoutExercises) {
-      return;
-    }
-    if (!currentExercise) {
+    if (!workoutExercises || !currentExercise) {
       return;
     }
     const currentExerciseIndex = workoutExercises.findIndex(
@@ -48,11 +48,13 @@ const Workout: React.FC = () => {
   };
 
   const onCloseHandler = () => {
+    console.log("onClose", currentExercise?.sets, "\n\n");
     persistCurrentExerciseState();
-    setCurrentExercise(null);
+    setSetListVisible(false);
   };
 
   const setCurrentExerciseHandler = (exercise: Exercise) => {
+    setSetListVisible(true);
     setCurrentExercise(exercise);
   };
 
@@ -83,10 +85,10 @@ const Workout: React.FC = () => {
         setCurrentExerciseHandler={setCurrentExerciseHandler}
         setExercisesHandler={setExercisesHandler}
       />
-      {currentExercise && workoutExercises && (
-        <WorkoutListDrawer
+      {setListVisible && (
+        <SetDrawer
           onClose={onCloseHandler}
-          currentExercise={currentExercise}
+          currentExercise={currentExercise!}
           updateSets={updateSets}
         />
       )}

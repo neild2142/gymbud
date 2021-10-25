@@ -5,7 +5,7 @@ import { Set } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
 import SetInput from "./SetInput";
 
-const WorkoutListDrawer: React.FC<{
+const SetDrawer: React.FC<{
   currentExercise: Exercise;
   onClose(): void;
   updateSets(sets: Set[]): void;
@@ -37,4 +37,4 @@ const WorkoutListDrawer: React.FC<{
   );
 };
 
-export default WorkoutListDrawer;
+export default SetDrawer;
