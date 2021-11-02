@@ -5,7 +5,7 @@ import ViewContainer from "../components/shared/ViewContainer";
 import SetDrawer from "../components/workout/SetDrawer";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
-import { Exercise, Set } from "../shared";
+import { Exercise, Set, SetState } from "../shared";
 import { RootStack } from "./RootStack";
 
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
@@ -19,6 +19,7 @@ const Workout: React.FC = () => {
     null
   );
   const [setListVisible, setSetListVisible] = useState(false);
+  const [setInformation, setSetInformation] = useState<SetState>({});
 
   const cancelWorkout = () => {
     navigation.goBack();
@@ -63,9 +64,10 @@ const Workout: React.FC = () => {
   };
 
   const updateSetsForExercise = (sets: Set[]) => {
-    if (currentExercise) {
-      setCurrentExercise({ ...currentExercise, sets });
+    if (!currentExercise) {
+      return;
     }
+    setSetInformation({ ...setInformation, [currentExercise.id]: sets });
   };
 
   /*
@@ -90,6 +92,7 @@ const Workout: React.FC = () => {
           onClose={onCloseHandler}
           currentExercise={currentExercise}
           updateSetsForExercise={updateSetsForExercise}
+          currentSets={setInformation[currentExercise.id]}
         />
       )}
     </ViewContainer>

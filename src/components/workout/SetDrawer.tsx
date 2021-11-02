@@ -8,8 +8,13 @@ const SetDrawer: React.FC<{
   currentExercise: Exercise;
   onClose(): void;
   updateSetsForExercise(sets: Set[]): void;
-}> = ({ currentExercise, onClose, updateSetsForExercise }) => {
-  const { sets, addSetToExercise, updateSet } = useSets(currentExercise);
+  currentSets: Set[];
+}> = ({ currentExercise, onClose, updateSetsForExercise, currentSets }) => {
+  const { sets, addSetToExercise, updateSet } = useSets(currentSets);
+
+  const setDrawerOnClose = () => {
+    onClose();
+  };
 
   const createExerciseSet = (set: FormSet) => {
     const updatedSets = addSetToExercise(set);
@@ -22,7 +27,7 @@ const SetDrawer: React.FC<{
   };
 
   return (
-    <BottomDrawer title={currentExercise.name} onClose={onClose}>
+    <BottomDrawer title={currentExercise.name} onClose={setDrawerOnClose}>
       {sets.map((set, index) => (
         <SetInput
           setNumber={index}

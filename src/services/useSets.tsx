@@ -1,5 +1,5 @@
 import React from "react";
-import { Exercise, FormSet, Set } from "../shared";
+import { FormSet, Set } from "../shared";
 
 interface SetControl {
   sets: Set[];
@@ -7,14 +7,14 @@ interface SetControl {
   updateSet(setNumber: number, set: FormSet): Set[];
 }
 
-const useSets = (currentExercise?: Exercise | null): SetControl => {
+const useSets = (setState: Set[]): SetControl => {
   const newSet = {
     weight: "",
     reps: "",
     complete: false,
   };
   const initialSets = () => {
-    return currentExercise?.sets || [newSet];
+    return setState || [newSet];
   };
 
   const [sets, setSets] = React.useState(initialSets);

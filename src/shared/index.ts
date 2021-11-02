@@ -28,5 +28,8 @@ export interface Exercise {
   muscles_secondary: number[];
   categoryName: string;
   category: number;
-  sets: Set[];
 }
+
+export type SetState = {
+  [exerciseId: string]: Set[];
+};
