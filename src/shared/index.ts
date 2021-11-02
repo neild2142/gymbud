@@ -16,7 +16,7 @@ export interface FormSet {
 
 export interface Category {
   id: number;
-  name: string;
+  name: BodyPart;
   categoryIndex?: number;
 }
 
@@ -26,10 +26,16 @@ export interface Exercise {
   description: string;
   muscles: number[];
   muscles_secondary: number[];
-  categoryName: string;
+  categoryName: BodyPart;
   category: number;
 }
 
 export type SetState = {
   [exerciseId: string]: Set[];
+};
+
+export type BodyPart = "Abs" | "Arms" | "Back" | "Chest" | "Legs" | "Shoulders";
+
+export type CategoryTag = {
+  [bodyPart in BodyPart]: string;
 };

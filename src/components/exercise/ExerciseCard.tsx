@@ -6,6 +6,7 @@ import muscleData from "../../data/muscles";
 import Card from "../shared/Card";
 import { Exercise } from "../../shared";
 import { LIST_ITEM_HEIGHT } from "../shared/Deletable";
+import { categoryTagColours } from "../../data/categories";
 
 interface ExerciseCardProps {
   exercise: Exercise;
@@ -32,7 +33,7 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           </Text>
           <WorkoutTag
             bodyPart={exercise.categoryName}
-            color="#fff1a5"
+            color={categoryTagColours[exercise.categoryName]}
             style={{ marginRight: 0 }}
           />
         </View>

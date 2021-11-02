@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View } from "react-native";
+import { categoryTagColours } from "../../data/categories";
 import { Category } from "../../shared";
 import Card from "../shared/Card";
 import Text from "../shared/Text";
@@ -64,7 +65,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
     <>
       <WorkoutTag
         bodyPart={category.name}
-        color={tagColors[category.categoryIndex % tagColors.length]}
+        color={categoryTagColours[category.name]}
       />
       <Text style={{ color: "white" }}>
         Lorem ipsum dolor, sit amet consectetur!
