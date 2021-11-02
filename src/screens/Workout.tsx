@@ -2,9 +2,9 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import ViewContainer from "../components/shared/ViewContainer";
+import SetDrawer from "../components/workout/SetDrawer";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
-import SetDrawer from "../components/workout/SetDrawer";
 import { Exercise, Set } from "../shared";
 import { RootStack } from "./RootStack";
 
@@ -14,7 +14,7 @@ const Workout: React.FC = () => {
   const { exercises: exercisesFromNavigation } =
     useRoute<RouteProp<RootStack, "Workout">>().params;
   const navigation = useNavigation<WorkoutStack>();
-  const [currentExercise, setCurrentExercise] = useState<Exercise>();
+  const [currentExercise, setCurrentExercise] = useState<Exercise | null>();
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>(
     null
   );
@@ -48,9 +48,9 @@ const Workout: React.FC = () => {
   };
 
   const onCloseHandler = () => {
-    console.log("onClose", currentExercise?.sets, "\n\n");
     persistCurrentExerciseState();
     setSetListVisible(false);
+    setCurrentExercise(null);
   };
 
   const setCurrentExerciseHandler = (exercise: Exercise) => {
@@ -62,6 +62,12 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercises);
   };
 
+  const updateSetsForExercise = (sets: Set[]) => {
+    if (currentExercise) {
+      setCurrentExercise({ ...currentExercise, sets });
+    }
+  };
+
   /*
     Bug - workoutExercises was not being set to exercises
     Perhaps this was down to the manner in which react native
@@ -71,12 +77,6 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercisesFromNavigation);
   }, [exercisesFromNavigation]);
 
-  const updateSets = (sets: Set[]) => {
-    if (currentExercise) {
-      setCurrentExercise({ ...currentExercise, sets });
-    }
-  };
-
   return (
     <ViewContainer style={{ position: "relative" }}>
       <WorkoutHeader back={cancelWorkout} next={addExercise} />
@@ -85,11 +85,11 @@ const Workout: React.FC = () => {
         setCurrentExerciseHandler={setCurrentExerciseHandler}
         setExercisesHandler={setExercisesHandler}
       />
-      {setListVisible && (
+      {setListVisible && currentExercise && (
         <SetDrawer
           onClose={onCloseHandler}
-          currentExercise={currentExercise!}
-          updateSets={updateSets}
+          currentExercise={currentExercise}
+          updateSetsForExercise={updateSetsForExercise}
         />
       )}
     </ViewContainer>

@@ -61,16 +61,9 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
         });
   };
 
-  const closeExerciseListHandler = () => {
-    hideExerciseList();
-  };
-
   const renderExercises = () => {
     return (
-      <BottomDrawer
-        title={currentCategory.name}
-        onClose={closeExerciseListHandler}
-      >
+      <BottomDrawer title={currentCategory.name} onClose={hideExerciseList}>
         <FlatList
           data={exercises}
           keyExtractor={(item, index) => `${item.name} - ${index}`}

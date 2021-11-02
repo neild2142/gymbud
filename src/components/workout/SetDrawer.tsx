@@ -1,25 +1,24 @@
 import React from "react";
 import useSets from "../../services/useSets";
-import { Exercise, FormSet } from "../../shared";
-import { Set } from "../../shared";
+import { Exercise, FormSet, Set } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
 import SetInput from "./SetInput";
 
 const SetDrawer: React.FC<{
   currentExercise: Exercise;
   onClose(): void;
-  updateSets(sets: Set[]): void;
-}> = ({ currentExercise, onClose, updateSets }) => {
+  updateSetsForExercise(sets: Set[]): void;
+}> = ({ currentExercise, onClose, updateSetsForExercise }) => {
   const { sets, addSetToExercise, updateSet } = useSets(currentExercise);
 
   const createExerciseSet = (set: FormSet) => {
     const updatedSets = addSetToExercise(set);
-    updateSets(updatedSets);
+    updateSetsForExercise(updatedSets);
   };
 
   const updateExerciseSet = (setNumber: number, formSet: FormSet) => {
     const updatedSets = updateSet(setNumber, formSet);
-    updateSets(updatedSets);
+    updateSetsForExercise(updatedSets);
   };
 
   return (

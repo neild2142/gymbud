@@ -1,11 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, BackHandler, StyleSheet, View } from "react-native";
+import {
+  Animated,
+  BackHandler,
+  GestureResponderEvent,
+  StyleSheet,
+  View,
+} from "react-native";
 import { Icon } from "react-native-elements";
 import Text from "./Text";
 
 interface BottomDrawerProps {
   title: string;
-  onClose(): void;
+  onClose(event?: GestureResponderEvent): void;
 }
 
 const BottomDrawer: React.FC<BottomDrawerProps> = ({
@@ -16,14 +22,16 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({
   const slideAnimation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    const hardwareBackPress = "hardwareBackPress";
+
     const backPressHandler = () => {
       onClose();
       return true;
     };
-    BackHandler.addEventListener("hardwareBackPress", backPressHandler);
+    BackHandler.addEventListener(hardwareBackPress, backPressHandler);
 
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backPressHandler);
+      BackHandler.removeEventListener(hardwareBackPress, backPressHandler);
     };
   }, []);
 

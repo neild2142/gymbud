@@ -7,14 +7,14 @@ interface SetControl {
   updateSet(setNumber: number, set: FormSet): Set[];
 }
 
-const useSets = (currentExercise: Exercise): SetControl => {
+const useSets = (currentExercise?: Exercise | null): SetControl => {
   const newSet = {
     weight: "",
     reps: "",
     complete: false,
   };
   const initialSets = () => {
-    return currentExercise.sets || [newSet];
+    return currentExercise?.sets || [newSet];
   };
 
   const [sets, setSets] = React.useState(initialSets);
