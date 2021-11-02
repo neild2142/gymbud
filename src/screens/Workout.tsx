@@ -90,7 +90,7 @@ const Workout: React.FC = () => {
       {setListVisible && currentExercise && (
         <SetDrawer
           onClose={onCloseHandler}
-          currentExercise={currentExercise}
+          title={currentExercise.name}
           updateSetsForExercise={updateSetsForExercise}
           currentSets={setInformation[currentExercise.id]}
         />

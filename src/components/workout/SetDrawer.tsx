@@ -5,11 +5,11 @@ import BottomDrawer from "../shared/BottomDrawer";
 import SetInput from "./SetInput";
 
 const SetDrawer: React.FC<{
-  currentExercise: Exercise;
+  title: string;
   onClose(): void;
   updateSetsForExercise(sets: Set[]): void;
   currentSets: Set[];
-}> = ({ currentExercise, onClose, updateSetsForExercise, currentSets }) => {
+}> = ({ title, onClose, updateSetsForExercise, currentSets }) => {
   const { sets, addSetToExercise, updateSet } = useSets(currentSets);
 
   const setDrawerOnClose = () => {
@@ -27,7 +27,7 @@ const SetDrawer: React.FC<{
   };
 
   return (
-    <BottomDrawer title={currentExercise.name} onClose={setDrawerOnClose}>
+    <BottomDrawer title={title} onClose={setDrawerOnClose}>
       {sets.map((set, index) => (
         <SetInput
           setNumber={index}
