@@ -38,7 +38,10 @@ const Deletable: React.FC<DeletableProps> = ({
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
     onActive: (event) => {
-      translateX.value = event.translationX;
+      const isSwipingLeftPastThreshold = event.translationX < -10;
+      if (isSwipingLeftPastThreshold) {
+        translateX.value = event.translationX;
+      }
     },
     onEnd: () => {
       const shouldBeDismissed = translateX.value < TRANSLATE_X_THRESHOLD;
