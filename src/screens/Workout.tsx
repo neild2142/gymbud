@@ -18,7 +18,6 @@ const Workout: React.FC = () => {
   const [workoutExercises, setWorkoutExercises] = useState<Exercise[] | null>(
     null
   );
-  const [setListVisible, setSetListVisible] = useState(false);
   const [setInformation, setSetInformation] = useState<SetState>({});
 
   const cancelWorkout = () => {
@@ -31,31 +30,11 @@ const Workout: React.FC = () => {
     });
   };
 
-  const persistCurrentExerciseState = () => {
-    if (!workoutExercises || !currentExercise) {
-      return;
-    }
-    const currentExerciseIndex = workoutExercises.findIndex(
-      (we) => we.id === currentExercise.id
-    );
-
-    if (currentExerciseIndex === -1) {
-      return;
-    }
-
-    const tempWorkoutExercises = [...workoutExercises];
-    tempWorkoutExercises[currentExerciseIndex] = currentExercise;
-    setWorkoutExercises(tempWorkoutExercises);
-  };
-
   const onCloseHandler = () => {
-    persistCurrentExerciseState();
-    setSetListVisible(false);
     setCurrentExercise(null);
   };
 
   const setCurrentExerciseHandler = (exercise: Exercise) => {
-    setSetListVisible(true);
     setCurrentExercise(exercise);
   };
 
@@ -87,7 +66,7 @@ const Workout: React.FC = () => {
         setCurrentExerciseHandler={setCurrentExerciseHandler}
         setExercisesHandler={setExercisesHandler}
       />
-      {setListVisible && currentExercise && (
+      {currentExercise && (
         <SetDrawer
           onClose={onCloseHandler}
           title={currentExercise.name}

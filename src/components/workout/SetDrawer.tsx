@@ -1,6 +1,6 @@
 import React from "react";
 import useSets from "../../services/useSets";
-import { Exercise, FormSet, Set } from "../../shared";
+import { FormSet, Set } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
 import SetInput from "./SetInput";
 
