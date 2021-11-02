@@ -4,7 +4,7 @@ import { categoryTagColours } from "../../data/categories";
 import { Category } from "../../shared";
 import Card from "../shared/Card";
 import Text from "../shared/Text";
-import WorkoutTag, { tagColors } from "../workout/WorkoutTag";
+import WorkoutTag from "../workout/WorkoutTag";
 
 interface CategoryCardProps {
   category: Category;
@@ -63,10 +63,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
 
   const renderCardBody = () => (
     <>
-      <WorkoutTag
-        bodyPart={category.name}
-        color={categoryTagColours[category.name]}
-      />
+      <WorkoutTag bodyPart={category.name} />
       <Text style={{ color: "white" }}>
         Lorem ipsum dolor, sit amet consectetur!
       </Text>

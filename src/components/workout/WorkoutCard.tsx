@@ -13,9 +13,9 @@ const WorkoutCard: React.FC<WorkoutCardProps> = ({ title }) => {
     <Card style={{ minHeight: 230 }}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.tags}>
-        <WorkoutTag bodyPart="bicep" color="#A6FFA5" />
-        <WorkoutTag bodyPart="chest" color="#F2A5FF" />
-        <WorkoutTag bodyPart="shoulders" color="#FFEBA5" />
+        <WorkoutTag bodyPart="Arms" />
+        <WorkoutTag bodyPart="Chest" />
+        <WorkoutTag bodyPart="Legs" />
       </View>
       <View style={styles.description}>
         <Text style={styles.descriptionText}>

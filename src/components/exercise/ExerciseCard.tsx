@@ -33,7 +33,6 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
           </Text>
           <WorkoutTag
             bodyPart={exercise.categoryName}
-            color={categoryTagColours[exercise.categoryName]}
             style={{ marginRight: 0 }}
           />
         </View>
