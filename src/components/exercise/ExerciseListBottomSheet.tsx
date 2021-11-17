@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Category, Exercise } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
+import BottomDrawerHeader from "../shared/BottomDrawerHeader";
 import Text from "../shared/Text";
 
 interface ExerciseListBottomSheetProps {
@@ -67,6 +68,12 @@ const ExerciseListBottomSheet: React.FC<ExerciseListBottomSheetProps> = ({
         <FlatList
           data={exercises}
           keyExtractor={(item, index) => `${item.name} - ${index}`}
+          ListHeaderComponent={() => (
+            <BottomDrawerHeader
+              title={currentCategory.name}
+              onClose={hideExerciseList}
+            />
+          )}
           renderItem={({ item: exercise }) => {
             const alreadyAdded = exerciseAlreadyInWorkout(exercise);
 
@@ -109,6 +116,18 @@ const styles = StyleSheet.create({
   listItem: {
     fontSize: 18,
     color: "black",
+  },
+  headingContainer: {
+    flexDirection: "row",
+    // marginBottom: HEADING_PADDING_BOTTOM,
+    paddingLeft: 15,
+    alignItems: "center",
+  },
+  headingTitle: {
+    fontSize: 24,
+    color: "black",
+    marginLeft: 15,
+    width: "80%",
   },
 });
 

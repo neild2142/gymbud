@@ -79,7 +79,7 @@ const Categories = () => {
   };
 
   return (
-    <ViewContainer style={{ position: "relative" }}>
+    <ViewContainer>
       <CategoryHeader back={navigateBack} />
       <CategoryList
         onCategoryClick={onCategoryClick}
