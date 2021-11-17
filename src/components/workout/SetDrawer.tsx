@@ -1,7 +1,9 @@
 import React from "react";
+import { FlatList } from "react-native";
 import useSets from "../../services/useSets";
 import { FormSet, Set } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
+import BottomDrawerHeader from "../shared/BottomDrawerHeader";
 import SetInput from "./SetInput";
 
 const SetDrawer: React.FC<{
@@ -11,10 +13,6 @@ const SetDrawer: React.FC<{
   currentSets: Set[];
 }> = ({ title, onClose, updateSetsForExercise, currentSets }) => {
   const { sets, addSetToExercise, updateSet } = useSets(currentSets);
-
-  const setDrawerOnClose = () => {
-    onClose();
-  };
 
   const createExerciseSet = (set: FormSet) => {
     const updatedSets = addSetToExercise(set);
@@ -27,16 +25,23 @@ const SetDrawer: React.FC<{
   };
 
   return (
-    <BottomDrawer title={title} onClose={setDrawerOnClose}>
-      {sets.map((set, index) => (
-        <SetInput
-          setNumber={index}
-          createNewSet={createExerciseSet}
-          updateSet={updateExerciseSet}
-          key={index}
-          set={set}
-        />
-      ))}
+    <BottomDrawer title={title} onClose={onClose}>
+      <FlatList
+        data={sets}
+        keyExtractor={(_set, index) => `Set #${index}`}
+        ListHeaderComponent={() => (
+          <BottomDrawerHeader onClose={onClose} title={title} />
+        )}
+        renderItem={({ item: set, index }) => (
+          <SetInput
+            setNumber={index}
+            createNewSet={createExerciseSet}
+            updateSet={updateExerciseSet}
+            key={index}
+            set={set}
+          />
+        )}
+      />
     </BottomDrawer>
   );
 };
