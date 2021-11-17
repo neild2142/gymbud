@@ -36,22 +36,25 @@ const ExerciseCard: React.FC<ExerciseCardProps> = ({
             style={{ marginRight: 0 }}
           />
         </View>
-        <View style={styles.muscles}>
-          {/* {exercise.muscles.map((mainMuscle) => (
+        <Text style={{ color: "white" }}>
+          lorem ipsum dolor sit amet, consectetur
+        </Text>
+        {/* <View style={styles.muscles}> */}
+        {/* {exercise.muscles.map((mainMuscle) => (
             <WorkoutTag
               key={`${exercise.name}-${mainMuscle}`}
               bodyPart={muscleData[mainMuscle].name}
               color="#cafbff"
             />
           ))} */}
-          {/* {exercise.muscles_secondary.map((secondary) => (
+        {/* {exercise.muscles_secondary.map((secondary) => (
             <WorkoutTag
               key={`${exercise.name}-${secondary}`}
               bodyPart={muscleData[secondary].name}
               color="#ebebeb"
             />
           ))} */}
-        </View>
+        {/* </View> */}
       </Card>
     </TouchableOpacity>
   );
