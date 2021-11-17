@@ -27,6 +27,7 @@ const SetDrawer: React.FC<{
   return (
     <BottomDrawer title={title} onClose={onClose}>
       <FlatList
+        removeClippedSubviews={false}
         data={sets}
         keyExtractor={(_set, index) => `Set #${index}`}
         ListHeaderComponent={() => (
