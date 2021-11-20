@@ -22,7 +22,7 @@ const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.2;
 interface DeletableProps
   extends Pick<PanGestureHandlerProps, "simultaneousHandlers"> {
   deletable: any;
-  onDismiss(exercise: Exercise): void;
+  onDismiss(item: any): void;
 }
 
 const Deletable: React.FC<DeletableProps> = ({

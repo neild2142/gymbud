@@ -1,9 +1,10 @@
-import React from "react";
-import { FlatList } from "react-native";
+import React, { useRef } from "react";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 import useSets from "../../services/useSets";
 import { FormSet, Set } from "../../shared";
 import BottomDrawer from "../shared/BottomDrawer";
 import BottomDrawerHeader from "../shared/BottomDrawerHeader";
+import Deletable from "../shared/Deletable";
 import SetInput from "./SetInput";
 
 const SetDrawer: React.FC<{
@@ -24,25 +25,29 @@ const SetDrawer: React.FC<{
     updateSetsForExercise(updatedSets);
   };
 
+  const scrollRef = useRef(null);
+
   return (
     <BottomDrawer title={title} onClose={onClose}>
-      <FlatList
-        removeClippedSubviews={false}
-        data={sets}
-        keyExtractor={(_set, index) => `Set #${index}`}
-        ListHeaderComponent={() => (
-          <BottomDrawerHeader onClose={onClose} title={title} />
-        )}
-        renderItem={({ item: set, index }) => (
-          <SetInput
-            setNumber={index}
-            createNewSet={createExerciseSet}
-            updateSet={updateExerciseSet}
-            key={index}
-            set={set}
-          />
-        )}
-      />
+      <ScrollView ref={scrollRef}>
+        <BottomDrawerHeader onClose={onClose} title={title} />
+        {sets.map((set, index) => (
+          <Deletable
+            deletable={set}
+            onDismiss={(set) => console.log(set)}
+            key={`${index}-set-deletable`}
+            simultaneousHandlers={scrollRef}
+          >
+            <SetInput
+              setNumber={index}
+              createNewSet={createExerciseSet}
+              updateSet={updateExerciseSet}
+              key={index}
+              set={set}
+            />
+          </Deletable>
+        ))}
+      </ScrollView>
     </BottomDrawer>
   );
 };
