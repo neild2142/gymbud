@@ -28,10 +28,18 @@ const SetInput: React.FC<{
     return false;
   };
 
+  const setHasNonNumericCharacters = (set: FormSet) => {
+    return isNaN(Number(set.reps)) || isNaN(Number(set.weight));
+  };
+
   const completeSet = handleSubmit((set: FormSet) => {
     if (setHasEmptyElements(set)) {
       return;
     }
+    if (setHasNonNumericCharacters(set)) {
+      return;
+    }
+
     if (complete) {
       updateSet(setNumber, set);
       return;
