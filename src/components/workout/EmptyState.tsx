@@ -1,15 +1,37 @@
 import React from "react";
-import { View } from "react-native";
+import { Animated, Easing, View } from "react-native";
 import Text from "../../components/shared/Text";
 import WorkoutSVG from "../shared/WorkoutSVG";
 
 const EmptyState = () => {
+  let opacity = new Animated.Value(0);
+  const animate = () => {
+    opacity.setValue(0);
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: 300,
+      easing: Easing.ease,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  React.useEffect(() => {
+    animate();
+  }, []);
+
+  const animatedStyles = {
+    opacity,
+  };
+
   return (
-    <View
-      style={{
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+    <Animated.View
+      style={[
+        {
+          alignItems: "center",
+          justifyContent: "center",
+        },
+        animatedStyles,
+      ]}
     >
       <View
         style={{
@@ -38,7 +60,7 @@ const EmptyState = () => {
         </Text>
       </View>
       <WorkoutSVG />
-    </View>
+    </Animated.View>
   );
 };
 
