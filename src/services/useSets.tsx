@@ -1,10 +1,14 @@
 import React from "react";
 import { FormSet, Set } from "../shared";
 
+import "react-native-get-random-values";
+import { v4 as uuid } from "uuid";
+
 interface SetControl {
   sets: Set[];
   addSetToExercise(set: FormSet): Set[];
   updateSet(setNumber: number, set: FormSet): Set[];
+  removeSet(setNumber: number): Set[];
 }
 
 const useSets = (setState: Set[]): SetControl => {
@@ -12,6 +16,7 @@ const useSets = (setState: Set[]): SetControl => {
     weight: "",
     reps: "",
     complete: false,
+    id: null,
   };
   const initialSets = () => {
     return setState || [newSet];
@@ -29,8 +34,8 @@ const useSets = (setState: Set[]): SetControl => {
       currentSets = [...sets];
     }
 
-    const completedSet = { ...set, complete: true };
-    const setToAdd = {
+    const completedSet: Set = { ...set, complete: true, id: uuid() };
+    const setToAdd: Set = {
       ...newSet,
       reps: completedSet.reps,
       weight: completedSet.weight,
@@ -50,15 +55,25 @@ const useSets = (setState: Set[]): SetControl => {
     return updatedSets;
   };
 
+  console.log(sets);
+
   const updateSet = (setNumber: number, set: FormSet) => {
     const updatedSets = [...sets];
-    updatedSets[setNumber] = { ...set, complete: true };
+    updatedSets[setNumber] = { ...set, complete: true, id: sets[setNumber].id };
     setSets(updatedSets);
 
     return updatedSets;
   };
 
-  return { sets, addSetToExercise, updateSet };
+  const removeSet = (setNumber: number) => {
+    const updatedSets = [...sets];
+    updatedSets.splice(setNumber, 1);
+    setSets(updatedSets);
+
+    return updatedSets;
+  };
+
+  return { sets, addSetToExercise, updateSet, removeSet };
 };
 
 export default useSets;

@@ -14,7 +14,7 @@ const SetDrawer: React.FC<{
   updateSetsForExercise(sets: Set[]): void;
   currentSets: Set[];
 }> = ({ title, onClose, updateSetsForExercise, currentSets }) => {
-  const { sets, addSetToExercise, updateSet } = useSets(currentSets);
+  const { sets, addSetToExercise, updateSet, removeSet } = useSets(currentSets);
   const scrollRef = useRef(null);
 
   const createExerciseSet = (set: FormSet) => {
@@ -27,12 +27,17 @@ const SetDrawer: React.FC<{
     updateSetsForExercise(updatedSets);
   };
 
+  const removeExerciseSet = (setNumber: number) => {
+    const updatedSets = removeSet(setNumber);
+    updateSetsForExercise(updatedSets);
+  };
+
   const renderSetInput = (set: Set, index: number) => (
     <SetInput
       setNumber={index}
       createNewSet={createExerciseSet}
       updateSet={updateExerciseSet}
-      key={index}
+      key={set.id || `set-${index}`}
       set={set}
     />
   );
@@ -40,8 +45,8 @@ const SetDrawer: React.FC<{
   const wrapInDeletable = (set: Set, index: number) => (
     <Deletable
       deletable={set}
-      onDismiss={(set) => console.log(set)}
-      key={`${index}-set-deletable`}
+      onDismiss={() => removeExerciseSet(index)}
+      key={set.id || `set-${index}`}
       simultaneousHandlers={scrollRef}
       zeroMarginVertical
     >
