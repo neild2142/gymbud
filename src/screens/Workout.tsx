@@ -8,6 +8,9 @@ import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
 import { Exercise, Set, SetState } from "../shared";
 import { RootStack } from "./RootStack";
+import { Button, FAB as FloatingActionButton } from "react-native-elements";
+import { styles } from "../../styles";
+import { View } from "react-native";
 
 export type WorkoutStack = StackNavigationProp<RootStack, "Workout">;
 
@@ -75,6 +78,22 @@ const Workout: React.FC = () => {
           currentSets={setInformation[currentExercise.id]}
         />
       )}
+      <View
+        style={{
+          bottom: 20,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Button
+          title="Complete"
+          titleStyle={{ color: "black" }}
+          buttonStyle={[
+            styles.buttonStyle,
+            { borderRadius: 20, backgroundColor: "#D6F0FF" },
+          ]}
+        />
+      </View>
     </>
   );
 

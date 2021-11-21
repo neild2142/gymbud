@@ -50,9 +50,9 @@ export const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   buttonStyle: {
-    padding: 10,
+    padding: 15,
     backgroundColor: "#FC85AE",
-    borderRadius: 10,
+    borderRadius: 20,
     width: 120,
   },
   secondaryButtonStyle: {
