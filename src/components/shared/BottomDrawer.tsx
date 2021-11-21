@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   BackHandler,
@@ -47,7 +47,7 @@ const BottomDrawer: React.FC<BottomDrawerProps> = ({ onClose, children }) => {
             {
               translateY: slideAnimation.interpolate({
                 inputRange: [0, 1],
-                outputRange: [2000, 0],
+                outputRange: [1500, 0],
               }),
             },
           ],
