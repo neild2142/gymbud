@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, TextInput, View } from "react-native";
 import { FormSet, Set } from "../../shared";
+import { LIST_ITEM_HEIGHT } from "../shared/Deletable";
 import Text from "../shared/Text";
 
 const SetInput: React.FC<{
@@ -28,15 +29,32 @@ const SetInput: React.FC<{
     return false;
   };
 
+  const setHasNonNumericCharacters = (set: FormSet) => {
+    return isNaN(Number(set.reps)) || isNaN(Number(set.weight));
+  };
+
+  const trimWhiteSpaces = (set: FormSet): FormSet => {
+    return {
+      reps: set.reps.trim(),
+      weight: set.weight.trim(),
+    };
+  };
+
   const completeSet = handleSubmit((set: FormSet) => {
     if (setHasEmptyElements(set)) {
       return;
     }
-    if (complete) {
-      updateSet(setNumber, set);
+    if (setHasNonNumericCharacters(set)) {
       return;
     }
-    createNewSet(set);
+
+    const trimmedSet = trimWhiteSpaces(set);
+
+    if (complete) {
+      updateSet(setNumber, trimmedSet);
+      return;
+    }
+    createNewSet(trimmedSet);
   });
 
   return (
@@ -103,7 +121,7 @@ const SetInput: React.FC<{
         style={{
           borderBottomColor: "#d3d3d3aa",
           borderBottomWidth: 1,
-          width: "90%",
+          width: "85%",
           alignSelf: "center",
         }}
       />
@@ -115,6 +133,7 @@ const stylesheet = StyleSheet.create({
   formContainer: {
     paddingVertical: 30,
     paddingHorizontal: 40,
+    height: LIST_ITEM_HEIGHT,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",

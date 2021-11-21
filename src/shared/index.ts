@@ -4,6 +4,7 @@ export interface HeaderProps {
 }
 
 export interface Set {
+  id: string | null;
   weight: string;
   reps: string;
   complete: boolean;
