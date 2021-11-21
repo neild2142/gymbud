@@ -33,6 +33,13 @@ const SetInput: React.FC<{
     return isNaN(Number(set.reps)) || isNaN(Number(set.weight));
   };
 
+  const trimWhiteSpaces = (set: FormSet): FormSet => {
+    return {
+      reps: set.reps.trim(),
+      weight: set.weight.trim(),
+    };
+  };
+
   const completeSet = handleSubmit((set: FormSet) => {
     if (setHasEmptyElements(set)) {
       return;
@@ -41,11 +48,13 @@ const SetInput: React.FC<{
       return;
     }
 
+    const trimmedSet = trimWhiteSpaces(set);
+
     if (complete) {
-      updateSet(setNumber, set);
+      updateSet(setNumber, trimmedSet);
       return;
     }
-    createNewSet(set);
+    createNewSet(trimmedSet);
   });
 
   return (
