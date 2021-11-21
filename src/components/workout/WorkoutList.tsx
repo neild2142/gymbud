@@ -23,14 +23,15 @@ const WorkoutList: React.FC<{
           onDismiss={(exercise) =>
             setExercisesHandler(exercises.filter((e) => e.id !== exercise.id))
           }
+          renderDeletable={(exercise: Exercise) => (
+            <ExerciseCard
+              exercise={exercise}
+              setExercise={() => setCurrentExerciseHandler(exercise)}
+            />
+          )}
           simultaneousHandlers={scrollRef}
           key={exercise.id}
-        >
-          <ExerciseCard
-            exercise={exercise}
-            setExercise={() => setCurrentExerciseHandler(exercise)}
-          />
-        </Deletable>
+        />
       ))}
     </ScrollView>
   );

@@ -20,20 +20,21 @@ const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.2;
 const ZERO_MARGIN_VERTICAL = 0;
 const LIST_ITEM_MARGIN_VERTICAL = 10;
 
-interface DeletableProps
+interface DeletableProps<T>
   extends Pick<PanGestureHandlerProps, "simultaneousHandlers"> {
-  deletable: any;
-  onDismiss(item: any): void;
+  deletable: T;
+  renderDeletable(deletable: T): JSX.Element;
+  onDismiss(item: T): void;
   zeroMarginVertical?: boolean;
 }
 
-const Deletable: React.FC<DeletableProps> = ({
-  children,
+const Deletable = <T extends unknown>({
   deletable,
   onDismiss,
+  renderDeletable,
   simultaneousHandlers,
   zeroMarginVertical,
-}) => {
+}: DeletableProps<T>) => {
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
   const marginVertical = useSharedValue(
@@ -101,7 +102,9 @@ const Deletable: React.FC<DeletableProps> = ({
         onGestureEvent={panGesture}
         simultaneousHandlers={simultaneousHandlers}
       >
-        <Animated.View style={[styles.task, rStyle]}>{children}</Animated.View>
+        <Animated.View style={[styles.task, rStyle]}>
+          {renderDeletable(deletable)}
+        </Animated.View>
       </PanGestureHandler>
     </Animated.View>
   );

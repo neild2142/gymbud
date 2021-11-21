@@ -55,8 +55,6 @@ const useSets = (setState: Set[]): SetControl => {
     return updatedSets;
   };
 
-  console.log(sets);
-
   const updateSet = (setNumber: number, set: FormSet) => {
     const updatedSets = [...sets];
     updatedSets[setNumber] = { ...set, complete: true, id: sets[setNumber].id };

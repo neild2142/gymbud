@@ -45,13 +45,12 @@ const SetDrawer: React.FC<{
   const wrapInDeletable = (set: Set, index: number) => (
     <Deletable
       deletable={set}
+      renderDeletable={(set: Set) => renderSetInput(set, index)}
       onDismiss={() => removeExerciseSet(index)}
       key={set.id || `set-${index}`}
       simultaneousHandlers={scrollRef}
       zeroMarginVertical
-    >
-      {renderSetInput(set, index)}
-    </Deletable>
+    />
   );
 
   return (
