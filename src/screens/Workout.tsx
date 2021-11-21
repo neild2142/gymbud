@@ -90,7 +90,12 @@ const Workout: React.FC = () => {
           titleStyle={{ color: "black" }}
           buttonStyle={[
             styles.buttonStyle,
-            { borderRadius: 20, backgroundColor: "#D6F0FF" },
+            {
+              borderRadius: 20,
+              backgroundColor: "#D6F0FF",
+              borderWidth: 2,
+              borderColor: "#3F4169",
+            },
           ]}
         />
       </View>
