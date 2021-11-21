@@ -2,6 +2,7 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { useState } from "react";
 import ViewContainer from "../components/shared/ViewContainer";
+import EmptyState from "../components/workout/EmptyState";
 import SetDrawer from "../components/workout/SetDrawer";
 import WorkoutHeader from "../components/workout/WorkoutHeader";
 import WorkoutList from "../components/workout/WorkoutList";
@@ -19,6 +20,7 @@ const Workout: React.FC = () => {
     null
   );
   const [setInformation, setSetInformation] = useState<SetState>({});
+  const hasExercises = workoutExercises && workoutExercises.length > 0;
 
   const cancelWorkout = () => {
     navigation.goBack();
@@ -58,9 +60,8 @@ const Workout: React.FC = () => {
     setWorkoutExercises(exercisesFromNavigation);
   }, [exercisesFromNavigation]);
 
-  return (
-    <ViewContainer style={{ position: "relative" }}>
-      <WorkoutHeader back={cancelWorkout} next={addExercise} />
+  const renderWorkoutList = () => (
+    <>
       <WorkoutList
         exercises={workoutExercises}
         setCurrentExerciseHandler={setCurrentExerciseHandler}
@@ -74,6 +75,13 @@ const Workout: React.FC = () => {
           currentSets={setInformation[currentExercise.id]}
         />
       )}
+    </>
+  );
+
+  return (
+    <ViewContainer style={{ position: "relative" }}>
+      <WorkoutHeader back={cancelWorkout} next={addExercise} />
+      {hasExercises ? renderWorkoutList() : <EmptyState />}
     </ViewContainer>
   );
 };
