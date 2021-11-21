@@ -13,16 +13,18 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { Exercise } from "../../shared";
 
 export const LIST_ITEM_HEIGHT = 120;
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const TRANSLATE_X_THRESHOLD = -SCREEN_WIDTH * 0.2;
+const ZERO_MARGIN_VERTICAL = 0;
+const LIST_ITEM_MARGIN_VERTICAL = 10;
 
 interface DeletableProps
   extends Pick<PanGestureHandlerProps, "simultaneousHandlers"> {
   deletable: any;
   onDismiss(item: any): void;
+  zeroMarginVertical?: boolean;
 }
 
 const Deletable: React.FC<DeletableProps> = ({
@@ -30,10 +32,13 @@ const Deletable: React.FC<DeletableProps> = ({
   deletable,
   onDismiss,
   simultaneousHandlers,
+  zeroMarginVertical,
 }) => {
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(LIST_ITEM_HEIGHT);
-  const marginVertical = useSharedValue(10);
+  const marginVertical = useSharedValue(
+    zeroMarginVertical ? ZERO_MARGIN_VERTICAL : LIST_ITEM_MARGIN_VERTICAL
+  );
   const opacity = useSharedValue(1);
 
   const panGesture = useAnimatedGestureHandler<PanGestureHandlerGestureEvent>({
@@ -108,7 +113,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   task: {
-    width: "95%",
+    width: "100%",
     height: LIST_ITEM_HEIGHT,
   },
   iconContainer: {

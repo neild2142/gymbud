@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { StyleSheet, TextInput, View } from "react-native";
 import { FormSet, Set } from "../../shared";
+import { LIST_ITEM_HEIGHT } from "../shared/Deletable";
 import Text from "../shared/Text";
 
 const SetInput: React.FC<{
@@ -111,7 +112,7 @@ const SetInput: React.FC<{
         style={{
           borderBottomColor: "#d3d3d3aa",
           borderBottomWidth: 1,
-          width: "90%",
+          width: "85%",
           alignSelf: "center",
         }}
       />
@@ -123,6 +124,7 @@ const stylesheet = StyleSheet.create({
   formContainer: {
     paddingVertical: 30,
     paddingHorizontal: 40,
+    height: LIST_ITEM_HEIGHT,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
